@@ -1,0 +1,5 @@
+rootProject.name = 'DailyWord'
+
+include 'gateway'
+include 'common'
+include 'module-member'
