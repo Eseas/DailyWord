@@ -58,10 +58,10 @@ public class MemberClient {
         }
     }
 
-    public void patchPassword(PatchPassword.Request requestDto) {
+    public void patchPassword(Long memberId, PatchPassword.Request requestDto) {
         try {
             memberWebClient.patch()
-                    .uri("/internal/member/password")
+                    .uri("/internal/member/{memberId}/password", memberId)
                     .body(requestDto, PatchPassword.Request.class)
                     .retrieve()
                     .toBodilessEntity()

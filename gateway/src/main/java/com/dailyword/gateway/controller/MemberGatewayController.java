@@ -5,6 +5,7 @@ import com.dailyword.gateway.client.MemberClient;
 import com.dailyword.gateway.dto.member.GetMemberInfo;
 import com.dailyword.gateway.dto.member.Login;
 import com.dailyword.gateway.dto.member.PatchMemberInfo;
+import com.dailyword.gateway.dto.member.PatchPassword;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,12 +45,27 @@ public class MemberGatewayController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    /**
+     * 회원 정보 수정
+     * @param memberId
+     * @param requestDto
+     * @return
+     */
     @PatchMapping("/gateway/members/{memberId}/info")
     public ResponseEntity<APIResponse<Long>> patchMemberInfo(
             @PathVariable Long memberId,
             @RequestBody PatchMemberInfo.Request requestDto
     ) {
         memberClient.patchMemberInfo(memberId, requestDto);
-        return null;
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PatchMapping("/gateway/members/{memberId}/password")
+    public ResponseEntity<APIResponse<Long>> patchMemberPassword(
+            @PathVariable Long memberId,
+            @RequestBody PatchPassword.Request requestDto
+    ) {
+        memberClient.patchPassword(memberId, requestDto);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
