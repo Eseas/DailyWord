@@ -1,14 +1,8 @@
-package com.dailyword.member.controller;
+package com.dailyword.member.facade;
 
 import com.dailyword.common.response.APIResponse;
-import com.dailyword.member.dto.member.GetMemberInfo;
-import com.dailyword.member.dto.member.LoginDto;
-import com.dailyword.member.dto.member.PatchPassword;
-import com.dailyword.member.dto.member.RegisterMember;
-import com.dailyword.member.usecase.GetMemberInfoUseCase;
-import com.dailyword.member.usecase.LoginUseCase;
-import com.dailyword.member.usecase.PatchPasswordUseCase;
-import com.dailyword.member.usecase.RegisterMemberUseCase;
+import com.dailyword.member.dto.member.*;
+import com.dailyword.member.usecase.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +16,7 @@ public class MemberFacade {
     private final RegisterMemberUseCase registerMemberUseCase;
     private final PatchPasswordUseCase patchPasswordUseCase;
     private final GetMemberInfoUseCase getMemberInfoUseCase;
+    private final PatchMemberInfoUseCase patchMemberInfoUseCase;
 
     @GetMapping("/internal/members/{id}")
     public ResponseEntity<APIResponse<GetMemberInfo.Response>> getMemberInfo(
@@ -57,6 +52,14 @@ public class MemberFacade {
         patchPasswordUseCase.patchPassword(requestDto);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/internal/members/{memberId}/info")
+    public ResponseEntity patchMemberInfo(
+            @PathVariable Long memberId,
+            @RequestBody PatchMemberInfo.Request requestDto
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(patchMemberInfoUseCase.patchMemberInfo(memberId, requestDto)));
     }
 
 }

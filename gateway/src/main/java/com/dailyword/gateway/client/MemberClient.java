@@ -2,10 +2,7 @@ package com.dailyword.gateway.client;
 
 
 import com.dailyword.common.response.APIResponse;
-import com.dailyword.gateway.dto.member.GetMemberInfo;
-import com.dailyword.gateway.dto.member.Login;
-import com.dailyword.gateway.dto.member.PatchPassword;
-import com.dailyword.gateway.dto.member.RegisterMember;
+import com.dailyword.gateway.dto.member.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -69,6 +66,18 @@ public class MemberClient {
                     .retrieve()
                     .toBodilessEntity()
                     .block(); // 동기 처리
+        } catch (Exception e) {
+        }
+    }
+
+    public void patchMemberInfo(Long memberId, PatchMemberInfo.Request requestDto) {
+        try {
+            memberWebClient.patch()
+                    .uri("/internal/members/{memberId}/info", memberId)
+                    .body(requestDto, PatchMemberInfo.Request.class)
+                    .retrieve()
+                    .toBodilessEntity()
+                    .block();
         } catch (Exception e) {
         }
     }

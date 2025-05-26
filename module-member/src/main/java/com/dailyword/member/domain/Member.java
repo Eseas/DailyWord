@@ -23,6 +23,8 @@ public class Member extends BaseEntity {
 
     private String password;
 
+    private String nickname;
+
     private LocalDate birthday;
 
     private String email;
@@ -45,11 +47,20 @@ public class Member extends BaseEntity {
         return new Member(name, loginId, password, birthday, email);
     }
 
+    public Member editInfo(String nickname) {
+        editNickname(nickname);
+        return this;
+    }
+
     private void setPassword(String password) {
         this.password = password;
     }
 
     public void changePassword(String newPassword) {
         this.password = newPassword;
+    }
+
+    private void editNickname(String nickname) {
+        this.nickname = nickname;
     }
 }
