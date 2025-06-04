@@ -1,4 +1,4 @@
-package com.dailyword.kakao.dto;
+package com.dailyword.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

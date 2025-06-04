@@ -1,9 +1,8 @@
-package com.dailyword.kakao.facade;
+package com.dailyword.auth.facade;
 
 import com.dailyword.common.response.APIResponse;
-import com.dailyword.kakao.dto.KakaoTokenResponse;
-import com.dailyword.kakao.dto.KakaoUserInfoResponse;
-import com.dailyword.kakao.service.KakaoAuthServiceImpl;
+import com.dailyword.auth.dto.KakaoUserInfoResponse;
+import com.dailyword.auth.service.KakaoAuthServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

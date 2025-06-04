@@ -1,4 +1,4 @@
-package com.dailyword.kakao.config;
+package com.dailyword.auth.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
