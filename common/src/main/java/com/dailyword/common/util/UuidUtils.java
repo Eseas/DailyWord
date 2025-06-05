@@ -18,7 +18,7 @@ public class UuidUtils {
     }
 
     /**
-     * UUID 기반 짧은 refCode 생성 (base64 + substring, 8자리)
+     * UUID 기반 짧은 refCode 생성 (base64 + substring, 10자리)
      */
     public static String generateShortRefCodeFromUuid() {
         UUID uuid = UUID.randomUUID();
@@ -26,11 +26,11 @@ public class UuidUtils {
         buffer.putLong(uuid.getMostSignificantBits());
         buffer.putLong(uuid.getLeastSignificantBits());
 
-        // Base64 URL-safe 인코딩 → 길이 22~24, 잘라서 8자리로
+        // Base64 URL-safe 인코딩 → 길이 22~24, 잘라서 10자리로
         return Base64.getUrlEncoder()
                 .withoutPadding()
                 .encodeToString(buffer.array())
-                .substring(0, 8); // 예: X9a7B3fP
+                .substring(0, 10); // 예: X9a7B3fP
     }
 
     /**
