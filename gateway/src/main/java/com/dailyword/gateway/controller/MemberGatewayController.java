@@ -34,14 +34,13 @@ public class MemberGatewayController {
 
     /**
      * 로그인
-     * @param requestDto - loginId, pwd
      * @return
      */
-    @PostMapping("/gateway/auth/members/login")
+    @PostMapping("/gateway/auth/members/login/{type}")
     public ResponseEntity<APIResponse> postLogin(
-            @RequestBody Login.Request requestDto
+
     ) {
-        memberClient.login(requestDto);
+        memberClient.kakaoLogin(requestDto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

@@ -2,6 +2,7 @@ package com.dailyword.gateway.client;
 
 
 import com.dailyword.common.response.APIResponse;
+import com.dailyword.gateway.dto.kakao.KakaoUserInfoResponse;
 import com.dailyword.gateway.dto.member.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,9 +13,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class MemberClient {
 
     private final WebClient memberWebClient;
+    private final WebClient kakaoWebClient;
 
-    public MemberClient(WebClient memberWebClient) {
+    public MemberClient(WebClient memberWebClient, WebClient kakaoWebClient) {
         this.memberWebClient = memberWebClient;
+        this.kakaoWebClient = kakaoWebClient;
     }
 
     public GetMemberInfo.Response getMemberInfo(Long memberId) {
@@ -31,30 +34,39 @@ public class MemberClient {
         }
     }
 
-    public UserDetails login(Login.Request requestDto) {
+    public UserDetails kakaoLogin(String kakaoCode) {
         try {
-            APIResponse<Login.Response> response = memberWebClient.post()
+            // 카카오 소셜 로그인 진행
+            APIResponse<KakaoUserInfoResponse> kakaoResponse = kakaoWebClient.post()
+                    .uri("/internal/kakao/login")
+                    .retrieve()
+                    .bodyToMono(new ParameterizedTypeReference<APIResponse<KakaoUserInfoResponse>>() {})
+                    .block();
+
+            // DB 확인
+            APIResponse<Login.Response> loginResponse = memberWebClient.post()
                     .uri("/internal/members/login")
-                    .body(requestDto, Login.Request.class)
+                    .body(kakaoResponse.getData(), KakaoUserInfoResponse.class)
                     .retrieve()
                     .bodyToMono(new ParameterizedTypeReference<APIResponse<Login.Response>>() {})
                     .block();
 
-            return response.getData();
+            if(!loginResponse.isSuccess() && loginResponse.getCode() == 2001) {
+                // DB에 회원이 존재하지 않을 때
+                APIResponse<Login.Response> registResponse = memberWebClient.post()
+                        .uri("/internal/members")
+                        .body(kakaoResponse.getData(), KakaoUserInfoResponse.class)
+                        .retrieve()
+                        .bodyToMono(new ParameterizedTypeReference<APIResponse<Login.Response>>() {})
+                        .block();
+
+                //
+            }
+
+            return null;
+
         } catch (Exception e) {
             return null;
-        }
-    }
-
-    public void signUp(RegisterMember.Request requestDto) {
-        try {
-            memberWebClient.post()
-                    .uri("/internal/member/auth/signup")
-                    .body(requestDto, RegisterMember.Request.class)
-                    .retrieve()
-                    .bodyToMono(RegisterMember.Response.class)
-                    .block(); // 동기 처리
-        } catch (Exception e) {
         }
     }
 

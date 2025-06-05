@@ -16,4 +16,9 @@ public class WebClientConfig {
     public WebClient wordWebClient() {
         return WebClient.builder().baseUrl("http://localhost:8081").build();
     }
+
+    @Bean
+    public WebClient kakaoWebClient() {
+        return WebClient.builder().baseUrl("http://localhost:8082").build();
+    }
 }
