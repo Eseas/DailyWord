@@ -38,9 +38,10 @@ public class MemberGatewayController {
      */
     @PostMapping("/gateway/auth/members/login/{type}")
     public ResponseEntity<APIResponse> postLogin(
-
+            @PathVariable String type,
+            @RequestParam String code
     ) {
-        memberClient.kakaoLogin(requestDto);
+        memberClient.kakaoLogin(code);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
