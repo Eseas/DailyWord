@@ -1,24 +1,24 @@
 package com.dailyword.gateway.client;
 
-
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.common.response.ErrorCode;
 import com.dailyword.gateway.dto.kakao.KakaoUserInfoResponse;
 import com.dailyword.gateway.dto.member.*;
+import com.dailyword.gateway.exception.MemberApiException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Component
+@Slf4j
 public class MemberClient {
 
     private final WebClient memberWebClient;
-    private final WebClient kakaoWebClient;
 
-    public MemberClient(WebClient memberWebClient, WebClient kakaoWebClient) {
+    public MemberClient(WebClient memberWebClient) {
         this.memberWebClient = memberWebClient;
-        this.kakaoWebClient = kakaoWebClient;
     }
 
     public GetMemberInfo.Response getMemberInfo(Long memberId) {
@@ -35,55 +35,54 @@ public class MemberClient {
         }
     }
 
-    // TODO -- 커스텀 예외로 변경
-    public GetMemberInfo.Response kakaoLogin(String kakaoCode) {
-        try {
-            // 카카오 소셜 로그인 진행
-            APIResponse<KakaoUserInfoResponse> kakaoResponse = kakaoWebClient.post()
-                    .uri(uriBuilder -> uriBuilder.path("/internal/kakao/login")
-                            .queryParam("code", kakaoCode)
-                            .build())
-                    .retrieve()
-                    .bodyToMono(new ParameterizedTypeReference<APIResponse<KakaoUserInfoResponse>>() {})
-                    .block();
+    public GetMemberInfo.Response login(KakaoUserInfoResponse kakaoUserInfo) {
+        APIResponse<GetMemberInfo.Response> response = memberWebClient.post()
+                .uri("/internal/members/login")
+                .bodyValue(kakaoUserInfo)
+                .retrieve()
+                .onStatus(status -> status.isError(), r ->
+                        r.bodyToMono(String.class)
+                                .defaultIfEmpty("")
+                                .flatMap(body -> {
+                                    log.error("Member API login error: status={}, body={}", r.statusCode(), body);
+                                    return Mono.error(new MemberApiException("Member API login failed", r.statusCode().value()));
+                                })
+                )
+                .bodyToMono(new ParameterizedTypeReference<APIResponse<GetMemberInfo.Response>>() {})
+                .block();
 
-            if (kakaoResponse == null || !kakaoResponse.isSuccess()) {
-                throw new RuntimeException("카카오 로그인 실패");
-            }
-
-            // DB 확인
-            APIResponse<GetMemberInfo.Response> loginResponse = memberWebClient.post()
-                    .uri("/internal/members/login")
-                    .bodyValue(kakaoResponse.getData())
-                    .retrieve()
-                    .bodyToMono(new ParameterizedTypeReference<APIResponse<GetMemberInfo.Response>>() {})
-                    .block();
-
-            if (loginResponse == null) {
-                throw new RuntimeException("Member login 응답 없음");
-            }
-
-            if (!loginResponse.isSuccess() && loginResponse.getCode() == ErrorCode.REQUIRED_REGIST_MEMBER.getCode()) {
-                // DB에 회원이 존재하지 않을 때 → 회원가입 진행
-                loginResponse = memberWebClient.post()
-                        .uri("/internal/members")
-                        .bodyValue(kakaoResponse.getData())
-                        .retrieve()
-                        .bodyToMono(new ParameterizedTypeReference<APIResponse<GetMemberInfo.Response>>() {})
-                        .block();
-
-                if (loginResponse == null || !loginResponse.isSuccess()) {
-                    throw new RuntimeException("회원가입 실패");
-                }
-            }
-
-            return loginResponse.getData();
-
-        } catch (Exception e) {
-            throw new RuntimeException("카카오 로그인 전체 프로세스 실패");
+        if (response == null) {
+            throw new MemberApiException("Member login 응답 없음", 500);
         }
+
+        if (!response.isSuccess() && response.getCode() != ErrorCode.REQUIRED_REGIST_MEMBER.getCode()) {
+            throw new MemberApiException("Member login 실패: " + response.getCode(), 400);
+        }
+
+        return response.getData();
     }
 
+    public GetMemberInfo.Response register(KakaoUserInfoResponse kakaoUserInfo) {
+        APIResponse<GetMemberInfo.Response> response = memberWebClient.post()
+                .uri("/internal/members")
+                .bodyValue(kakaoUserInfo)
+                .retrieve()
+                .onStatus(status -> status.isError(), r ->
+                        r.bodyToMono(String.class)
+                                .defaultIfEmpty("")
+                                .flatMap(body -> {
+                                    return Mono.error(new MemberApiException("Member API register failed", r.statusCode().value()));
+                                })
+                )
+                .bodyToMono(new ParameterizedTypeReference<APIResponse<GetMemberInfo.Response>>() {})
+                .block();
+
+        if (response == null || !response.isSuccess()) {
+            throw new MemberApiException("Member register 실패", 400);
+        }
+
+        return response.getData();
+    }
 
     public void patchPassword(Long memberId, PatchPassword.Request requestDto) {
         try {
