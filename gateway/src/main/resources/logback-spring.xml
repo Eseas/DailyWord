@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <!-- 모듈 이름 정의: gateway 모듈일 때 -->
+    <property name="MODULE_NAME" value="gateway" />
+
+    <!-- 콘솔 출력용 Appender -->
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                </timestamp>
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <threadName>
+                    <fieldName>thread</fieldName>
+                </threadName>
+                <loggerName>
+                    <fieldName>logger</fieldName>
+                </loggerName>
+                <mdc>
+                    <fieldNamePrefix>mdc.</fieldNamePrefix>
+                </mdc>
+                <pattern>
+                    <pattern>
+                        {
+                        "message": "%message",
+                        "module": "${MODULE_NAME}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- 파일 출력용 Appender (Rolling) -->
+    <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/app.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <fieldName>timestamp</fieldName>
+                </timestamp>
+                <logLevel>
+                    <fieldName>level</fieldName>
+                </logLevel>
+                <threadName>
+                    <fieldName>thread</fieldName>
+                </threadName>
+                <loggerName>
+                    <fieldName>logger</fieldName>
+                </loggerName>
+                <mdc>
+                    <fieldNamePrefix>mdc.</fieldNamePrefix>
+                </mdc>
+                <pattern>
+                    <pattern>
+                        {
+                        "message": "%message",
+                        "module": "${MODULE_NAME}"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Async Appender (성능 최적화) -->
+    <appender name="AsyncFile" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>512</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+        <appender-ref ref="FileAppender"/>
+    </appender>
+
+    <!-- Root Logger 설정 -->
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+        <appender-ref ref="AsyncFile"/>
+    </root>
+
+</configuration>
