@@ -1,5 +1,6 @@
 package com.dailyword.gateway.client;
 
+import com.dailyword.gateway.dto.auth.RefreshTokenRequest;
 import com.dailyword.gateway.dto.auth.TokenRequest;
 import com.dailyword.gateway.dto.auth.TokenResponse;
 import com.dailyword.gateway.exception.AuthApiException;
@@ -37,5 +38,22 @@ public class AuthClient {
         }
 
         return response;
+    }
+
+    public TokenResponse refreshToken(RefreshTokenRequest request) {
+        return authWebClient.post()
+                .uri("/internal/auth/refresh")
+                .bodyValue(request)
+                .retrieve()
+                .onStatus(status -> status.isError(), r ->
+                        r.bodyToMono(String.class)
+                                .defaultIfEmpty("")
+                                .flatMap(body -> {
+                                    log.error("Auth API refresh token error: status={}, body={}", r.statusCode(), body);
+                                    return Mono.error(new AuthApiException("Auth API refresh token 실패", r.statusCode().value()));
+                                })
+                )
+                .bodyToMono(TokenResponse.class)
+                .block();
     }
 }
