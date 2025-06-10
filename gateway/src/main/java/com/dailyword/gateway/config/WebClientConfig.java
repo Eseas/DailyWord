@@ -21,4 +21,7 @@ public class WebClientConfig {
     public WebClient kakaoWebClient() {
         return WebClient.builder().baseUrl("http://localhost:8082").build();
     }
+
+    @Bean
+    public WebClient authWebClient() { return WebClient.builder().baseUrl("http://localhost:8083").build(); }
 }

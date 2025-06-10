@@ -1,0 +1,45 @@
+package com.dailyword.auth.service;
+
+import com.dailyword.auth.config.AuthProperties;
+import com.dailyword.auth.dto.TokenResponse;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
+@Component
+@RequiredArgsConstructor
+public class JwtTokenProvider {
+
+    private final AuthProperties jwtProperties;
+
+    private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256;
+
+    public TokenResponse generateToken(String subject) {
+        Date now = new Date();
+
+        String accessToken = Jwts.builder()
+                .setSubject(subject)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + jwtProperties.getAccessTokenExpirationMs()))
+                .signWith(Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes()), SIGNATURE_ALGORITHM)
+                .compact();
+
+        String refreshToken = Jwts.builder()
+                .setSubject(subject)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + jwtProperties.getRefreshTokenExpirationMs()))
+                .signWith(Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes()), SIGNATURE_ALGORITHM)
+                .compact();
+
+        return TokenResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .accessTokenExpiresIn(jwtProperties.getAccessTokenExpirationMs())
+                .refreshTokenExpiresIn(jwtProperties.getRefreshTokenExpirationMs())
+                .build();
+    }
+}
