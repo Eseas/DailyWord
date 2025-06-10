@@ -2,6 +2,9 @@ package com.dailyword.auth.service;
 
 import com.dailyword.auth.config.AuthProperties;
 import com.dailyword.auth.dto.TokenResponse;
+import com.dailyword.auth.exception.InvalidRefreshTokenException;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -41,5 +44,17 @@ public class JwtTokenProvider {
                 .accessTokenExpiresIn(jwtProperties.getAccessTokenExpirationMs())
                 .refreshTokenExpiresIn(jwtProperties.getRefreshTokenExpirationMs())
                 .build();
+    }
+
+    public Claims validateTokenAndGetClaims(String token) {
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes()))
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (JwtException e) {
+            throw new InvalidRefreshTokenException("Invalid refresh token", e);
+        }
     }
 }
