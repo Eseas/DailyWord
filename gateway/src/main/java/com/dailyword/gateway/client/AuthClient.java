@@ -17,10 +17,10 @@ public class AuthClient {
 
     private final WebClient authWebClient;
 
-    public TokenResponse generateToken(String subject) {
-        TokenResponse response = authWebClient.post()
+    public TokenResponse generateToken(TokenRequest request) {
+        return authWebClient.post()
                 .uri("/internal/auth/token")
-                .bodyValue(new TokenRequest(subject))
+                .bodyValue(request)
                 .retrieve()
                 .onStatus(status -> status.isError(), r ->
                         r.bodyToMono(String.class)
@@ -32,12 +32,6 @@ public class AuthClient {
                 )
                 .bodyToMono(TokenResponse.class)
                 .block();
-
-        if (response == null) {
-            throw new AuthApiException("Auth token 응답 없음", 500);
-        }
-
-        return response;
     }
 
     public TokenResponse refreshToken(RefreshTokenRequest request) {

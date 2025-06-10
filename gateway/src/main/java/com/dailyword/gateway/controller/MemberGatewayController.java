@@ -3,10 +3,9 @@ package com.dailyword.gateway.controller;
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.client.MemberClient;
 import com.dailyword.gateway.dto.member.GetMemberInfo;
-import com.dailyword.gateway.dto.member.Login;
 import com.dailyword.gateway.dto.member.PatchMemberInfo;
 import com.dailyword.gateway.dto.member.PatchPassword;
-import com.dailyword.gateway.service.SocialLoginService;
+import com.dailyword.gateway.service.SocialLoginUsecaseImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberGatewayController {
 
     private final MemberClient memberClient;
-    private final SocialLoginService socialLoginService;
+    private final SocialLoginUsecaseImpl socialLoginUsecase;
 
     /**
      * 회원 정보 조회
@@ -43,7 +42,7 @@ public class MemberGatewayController {
             @PathVariable String type,
             @RequestParam String code
     ) {
-        socialLoginService.kakaoLoginFlow(code);
+        socialLoginUsecase.kakaoLogin(code);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

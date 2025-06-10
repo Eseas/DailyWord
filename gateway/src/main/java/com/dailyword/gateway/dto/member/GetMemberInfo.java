@@ -5,13 +5,13 @@ import java.time.LocalDate;
 public class GetMemberInfo {
 
     public static class Response {
-        Long memberId;
+        String memberId;
         String memberLoginId;
         String memberName;
         String memberEmail;
         LocalDate memberBirthday;
 
-        public Long getMemberId() {
+        public String getMemberId() {
             return memberId;
         }
 
