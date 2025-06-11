@@ -13,25 +13,26 @@ import java.util.UUID;
 @Component
 public class ApiLoggingInterceptor implements HandlerInterceptor {
 
-    private static final String TRACE_ID = "traceId";
+    public static final String TRACE_ID_HEADER = "X-Trace-Id";
+    private static final String MDC_KEY = "traceId";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String traceId = UUID.randomUUID().toString();
-        MDC.put(TRACE_ID, traceId);
+        String traceId = request.getHeader(TRACE_ID_HEADER);
+        if (traceId == null) {
+            traceId = UUID.randomUUID().toString();
+        }
 
-        request.setAttribute(TRACE_ID, traceId);
+        MDC.put(MDC_KEY, traceId);
+        request.setAttribute(TRACE_ID_HEADER, traceId); // 이후 RestTemplate 호출 시 사용 가능
+
         log.info("[API_ACCESS_LOG] method={} path={} traceId={}", request.getMethod(), request.getRequestURI(), traceId);
-
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        String traceId = (String) request.getAttribute(TRACE_ID);
-
-        log.info("[API_RESPONSE] path={} status={} traceId={}", request.getRequestURI(), response.getStatus(), traceId);
-
-        MDC.clear(); // 반드시 clear (메모리 누수 방지)
+        log.info("[API_RESPONSE] path={} status={} traceId={}", request.getRequestURI(), response.getStatus(), MDC.get(MDC_KEY));
+        MDC.clear();
     }
 }
