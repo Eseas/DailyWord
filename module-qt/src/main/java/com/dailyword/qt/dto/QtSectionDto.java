@@ -1,6 +1,6 @@
 package com.dailyword.qt.dto;
 
-import com.dailyword.qt.entity.QtPassage;
+import com.dailyword.qt.domain.model.entity.QtPassage;
 import lombok.Getter;
 
 import java.util.List;
