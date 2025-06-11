@@ -24,15 +24,15 @@ public class SocialLoginUsecaseImpl implements SocialLoginUsecase {
     @Override
     public TokenResponse kakaoLogin(String kakaoCode) {
 
-        KakaoUserInfoResponse kakaoUserInfo = kakaoClient.getUserInfo(kakaoCode);
+        KakaoUserInfoResponse kakaoUserInfo = kakaoClient.getUserInfo(kakaoCode).getData();
 
         GetMemberInfo.Response memberInfo = null;
 
         try {
-            memberInfo = memberClient.login(kakaoUserInfo);
+            memberInfo = memberClient.login(kakaoUserInfo).getData();
         } catch (MemberApiException e) {
             if (e.getStatusCode() == 404 || e.getStatusCode() == ErrorCode.REQUIRED_REGIST_MEMBER.getCode()) {
-                memberInfo = memberClient.register(kakaoUserInfo);
+                memberInfo = memberClient.register(kakaoUserInfo).getData();
             } else {
                 throw e;
             }
