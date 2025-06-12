@@ -1,7 +1,6 @@
 package com.dailyword.member.domain.model;
 
 import com.dailyword.common.domain.BaseUuidEntity;
-import com.dailyword.member.domain.IsActive;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +26,6 @@ public class Member extends BaseUuidEntity {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private MemberType memberType;
+    private SocialLoginType socialLoginType;
 
 }

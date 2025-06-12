@@ -1,6 +1,6 @@
 package com.dailyword.member.dto.member;
 
-import com.dailyword.member.domain.Member;
+import com.dailyword.member.domain.model.Member;
 
 import java.time.LocalDate;
 

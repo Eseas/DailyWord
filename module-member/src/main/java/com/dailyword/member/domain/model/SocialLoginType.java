@@ -1,5 +1,5 @@
 package com.dailyword.member.domain.model;
 
-public enum MemberType {
+public enum SocialLoginType {
     KAKAO
 }

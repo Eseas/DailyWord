@@ -1,7 +1,6 @@
 package com.dailyword.member.dto.member;
 
-import com.dailyword.member.domain.Member;
-import com.dailyword.member.domain.MemberRole;
+import com.dailyword.member.domain.model.Member;
 
 public class LoginDto {
 
@@ -29,12 +28,10 @@ public class LoginDto {
     public static class Response {
         private Long id;
         private String name;
-        private MemberRole role;
 
         private Response(Member member) {
             id = member.getId();
             name = member.getName();
-            role = member.getRole();
         }
 
         public static Response toDto(Member member) {

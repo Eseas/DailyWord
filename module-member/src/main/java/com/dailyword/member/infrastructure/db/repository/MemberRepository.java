@@ -10,5 +10,4 @@ import java.util.Optional;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByLoginId(String loginId);
-    Optional<Member> findByIdAndIsActive(Long id, IsActive isActive);
 }

@@ -3,7 +3,7 @@ package com.dailyword.member.application.service;
 import com.dailyword.common.exception.BusinessException;
 import com.dailyword.common.response.ErrorCode;
 import com.dailyword.member.domain.IsActive;
-import com.dailyword.member.domain.Member;
+import com.dailyword.member.domain.model.Member;
 import com.dailyword.member.dto.member.GetMemberInfo;
 import com.dailyword.member.infrastructure.db.repository.MemberRepository;
 import com.dailyword.member.application.usecase.GetMemberInfoUseCase;
