@@ -1,7 +1,7 @@
 package com.dailyword.member.infrastructure.db.repository;
 
 import com.dailyword.member.domain.IsActive;
-import com.dailyword.member.domain.Member;
+import com.dailyword.member.domain.model.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
