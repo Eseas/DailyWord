@@ -20,4 +20,7 @@ public class Comment extends BaseEntity {
     private Long authorId;
 
     private String content;
+
+    @Enumerated(EnumType.STRING)
+    private CommentStatus status;
 }
