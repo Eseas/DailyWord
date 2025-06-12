@@ -20,7 +20,7 @@ public class GetMemberInfoService implements GetMemberInfoUseCase {
 
     @Override
     public GetMemberInfo.Response getMemberInfo(Long memberId) {
-        Member member = memberRepository.findByIdAndIsActive(memberId, IsActive.ACITVE)
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER.getMessage()));
 
         var response = GetMemberInfo.Response.toDto(member);
