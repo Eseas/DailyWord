@@ -19,12 +19,21 @@ public class Post extends BaseUuidEntity {
 
     private String content;
 
-    private Long likeCount;
+    private Long likeCount = 0L;
 
-    private Long commentCount;
+    private Long commentCount = 0L;
 
-    private Long viewCount;
+    private Long viewCount = 0L;
 
     @Enumerated(EnumType.STRING)
-    private PostStatus status;
+    private PostStatus status = PostStatus.ACTIVE;
+
+    private Post(Long memberId, String content) {
+        this.memberId = memberId;
+        this.content = content;
+    }
+
+    public static Post create(Long memberId, String content) {
+        return new Post(memberId, content);
+    }
 }
