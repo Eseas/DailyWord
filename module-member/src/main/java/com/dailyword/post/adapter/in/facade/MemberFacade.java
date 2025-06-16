@@ -3,7 +3,6 @@ package com.dailyword.post.adapter.in.facade;
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.post.application.usecase.GetMemberInfoUseCase;
 import com.dailyword.post.application.usecase.LoginUseCase;
-import com.dailyword.post.application.usecase.PatchPasswordUseCase;
 import com.dailyword.post.dto.member.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 public class MemberFacade {
 
     private final LoginUseCase loginUseCase;
-    private final PatchPasswordUseCase patchPasswordUseCase;
     private final GetMemberInfoUseCase getMemberInfoUseCase;
 
     @GetMapping("/internal/members/{id}")
