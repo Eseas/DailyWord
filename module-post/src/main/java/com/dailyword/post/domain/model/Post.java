@@ -15,11 +15,11 @@ public class Post extends BaseUuidEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long memberId;
+    private Long authorId;
 
     private String content;
 
-    private Long likeCount = 0L;
+    private Integer likeCount = 0;
 
     private Long commentCount = 0L;
 
@@ -29,7 +29,7 @@ public class Post extends BaseUuidEntity {
     private PostStatus status = PostStatus.ACTIVE;
 
     private Post(Long memberId, String content) {
-        this.memberId = memberId;
+        this.authorId = memberId;
         this.content = content;
     }
 
