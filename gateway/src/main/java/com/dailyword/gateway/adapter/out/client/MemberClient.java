@@ -1,7 +1,6 @@
 package com.dailyword.gateway.adapter.out.client;
 
 import com.dailyword.gateway.dto.member.PatchMemberInfo;
-import com.dailyword.gateway.dto.member.PatchPassword;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -21,10 +20,6 @@ public interface MemberClient {
 
     @PostMapping("/internal/members")
     APIResponse<GetMemberInfo.Response> register(@RequestBody KakaoUserInfoResponse kakaoUserInfo);
-
-    @PatchMapping("/internal/member/{memberId}/password")
-    void patchPassword(@PathVariable("memberId") Long memberId,
-                       @RequestBody PatchPassword.Request requestDto);
 
     @PatchMapping("/internal/members/{memberId}/info")
     void patchMemberInfo(@PathVariable("memberId") Long memberId,

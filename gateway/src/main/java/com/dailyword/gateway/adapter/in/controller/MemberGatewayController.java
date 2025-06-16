@@ -4,7 +4,6 @@ import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.adapter.out.client.MemberClient;
 import com.dailyword.gateway.dto.member.GetMemberInfo;
 import com.dailyword.gateway.dto.member.PatchMemberInfo;
-import com.dailyword.gateway.dto.member.PatchPassword;
 import com.dailyword.gateway.application.service.SocialLoginUsecaseImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -58,15 +57,6 @@ public class MemberGatewayController {
             @RequestBody PatchMemberInfo.Request requestDto
     ) {
         memberClient.patchMemberInfo(memberId, requestDto);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-    @PatchMapping("/gateway/members/{memberId}/password")
-    public ResponseEntity<APIResponse<Long>> patchMemberPassword(
-            @PathVariable Long memberId,
-            @RequestBody PatchPassword.Request requestDto
-    ) {
-        memberClient.patchPassword(memberId, requestDto);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

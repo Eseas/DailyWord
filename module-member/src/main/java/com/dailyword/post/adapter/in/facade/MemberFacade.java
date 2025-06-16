@@ -35,13 +35,4 @@ public class MemberFacade {
 
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(response));
     }
-
-    @PatchMapping("/internal/members/password")
-    public ResponseEntity patchPassword(
-            @RequestBody PatchPassword.Request requestDto
-    ) {
-        patchPasswordUseCase.patchPassword(requestDto);
-
-        return ResponseEntity.ok().build();
-    }
 }
