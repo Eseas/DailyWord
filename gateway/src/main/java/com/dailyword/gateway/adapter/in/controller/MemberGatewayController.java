@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/v1/gateway")
 public class MemberGatewayController {
 
     private final MemberClient memberClient;
@@ -23,7 +23,7 @@ public class MemberGatewayController {
      * @param memberId
      * @return
      */
-    @GetMapping("/gateway/member/{memberId}")
+    @GetMapping("/member/{memberId}")
     public ResponseEntity<APIResponse<GetMemberInfo.Response>> getMember(
             @PathVariable Long memberId
     ) {
@@ -36,7 +36,7 @@ public class MemberGatewayController {
      * 로그인
      * @return
      */
-    @PostMapping("/gateway/auth/members/login/{type}")
+    @PostMapping("/auth/members/login/{type}")
     public ResponseEntity<APIResponse> postLogin(
             @PathVariable String type,
             @RequestParam String code
@@ -51,7 +51,7 @@ public class MemberGatewayController {
      * @param requestDto
      * @return
      */
-    @PatchMapping("/gateway/members/{memberId}/info")
+    @PatchMapping("/members/{memberId}/info")
     public ResponseEntity<APIResponse<Long>> patchMemberInfo(
             @PathVariable Long memberId,
             @RequestBody PatchMemberInfo.Request requestDto
