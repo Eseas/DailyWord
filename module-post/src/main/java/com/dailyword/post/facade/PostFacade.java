@@ -1,5 +1,6 @@
 package com.dailyword.post.facade;
 
+import com.dailyword.post.application.usecase.PostCreateUsecase;
 import com.dailyword.post.facade.dto.PostCreateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,6 @@ public class PostFacade {
 
     @PostMapping
     public Long createPost(@RequestBody PostCreateRequest request) {
-        return postCreateUsecase.createPost(request.getAuthorId(), request.getContent());
+        return postCreateUsecase.createPost(request.toCommand());
     }
 }
