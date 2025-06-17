@@ -3,7 +3,9 @@ package com.dailyword.post.facade;
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.post.application.usecase.PostCreateUsecase;
 import com.dailyword.post.application.usecase.PostPageUsecase;
+import com.dailyword.post.application.usecase.PostReadUsecase;
 import com.dailyword.post.facade.dto.PostCreateRequest;
+import com.dailyword.post.facade.dto.PostDetailResponse;
 import com.dailyword.post.facade.dto.PostPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ public class PostFacade {
 
     private final PostPageUsecase postPageUsecase;
     private final PostCreateUsecase postCreateUsecase;
+    private final PostReadUsecase postReadUsecase;
 
     @GetMapping
     public ResponseEntity<APIResponse<List<PostPageResponse>>> getPosts(
@@ -26,6 +29,12 @@ public class PostFacade {
             @RequestParam int size
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(postPageUsecase.getPosts(page, size)));
+    }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<APIResponse<PostDetailResponse>> getPost(@PathVariable Long postId) {
+        PostDetailResponse response = postReadUsecase.getPost(postId);
+        return ResponseEntity.ok(APIResponse.success(response));
     }
 
     @PostMapping
