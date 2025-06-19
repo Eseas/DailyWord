@@ -16,10 +16,10 @@ public class PostCreateService implements PostCreateUsecase {
 
     @Override
     @Transactional
-    public Long createPost(CreatePostCommand command) {
+    public String createPost(CreatePostCommand command) {
 
         Post post = Post.create(command.getAuthorId(), command.getContent());
 
-        return postRepository.save(post).getId();
+        return postRepository.save(post).getRefCode();
     }
 }

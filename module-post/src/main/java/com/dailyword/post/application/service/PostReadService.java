@@ -16,8 +16,8 @@ public class PostReadService implements PostReadUsecase {
 
     @Override
     @Transactional(readOnly = true)
-    public PostDetailResponse getPost(Long id) {
-        Post post = postRepository.findById(id)
+    public PostDetailResponse getPost(String postRefCode) {
+        Post post = postRepository.findByRefCode(postRefCode)
                 .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시글입니다."));
         return new PostDetailResponse(post);
     }

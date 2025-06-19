@@ -4,6 +4,7 @@ import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.dto.post.CreatePostRequest;
 import com.dailyword.gateway.dto.post.PostDetailResponse;
 import com.dailyword.gateway.dto.post.PostPageResponse;
+import com.dailyword.gateway.dto.post.PostUpdateRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,9 @@ public interface PostClient {
             @RequestParam int size
     );
 
-    @GetMapping("/internal/post/{postId}")
-    APIResponse<PostDetailResponse> getPost(@PathVariable Long postId);
+    @GetMapping("/internal/post/{postRefCode}")
+    APIResponse<PostDetailResponse> getPost(@PathVariable String postRefCode);
+
+    @PutMapping("/internal/post/{postRefCode}")
+    APIResponse<String> updatePost(@PathVariable String postRefCode, @RequestBody PostUpdateRequest request);
 }

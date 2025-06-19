@@ -13,7 +13,7 @@ public class PostReadService implements PostReadUsecase {
     private final PostClient postClient;
 
     @Override
-    public PostDetailResponse getPost(Long id) {
-        return postClient.getPost(id).getData();
+    public PostDetailResponse getPost(String postRefCode) {
+        return postClient.getPost(postRefCode).getData();
     }
 }
