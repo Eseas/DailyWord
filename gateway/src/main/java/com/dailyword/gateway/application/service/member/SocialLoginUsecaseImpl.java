@@ -1,4 +1,4 @@
-package com.dailyword.gateway.application.service;
+package com.dailyword.gateway.application.service.member;
 
 import com.dailyword.common.response.ErrorCode;
 import com.dailyword.gateway.adapter.out.client.AuthClient;
@@ -9,7 +9,7 @@ import com.dailyword.gateway.dto.auth.TokenResponse;
 import com.dailyword.gateway.dto.kakao.KakaoUserInfoResponse;
 import com.dailyword.gateway.dto.member.GetMemberInfo;
 import com.dailyword.gateway.exception.MemberApiException;
-import com.dailyword.gateway.application.usecase.SocialLoginUsecase;
+import com.dailyword.gateway.application.usecase.member.SocialLoginUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

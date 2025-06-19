@@ -1,9 +1,9 @@
-package com.dailyword.gateway.application.service;
+package com.dailyword.gateway.application.service.auth;
 
 import com.dailyword.gateway.adapter.out.client.AuthClient;
 import com.dailyword.gateway.dto.auth.TokenRequest;
 import com.dailyword.gateway.dto.auth.TokenResponse;
-import com.dailyword.gateway.application.usecase.GenerateTokenUsecase;
+import com.dailyword.gateway.application.usecase.auth.GenerateTokenUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

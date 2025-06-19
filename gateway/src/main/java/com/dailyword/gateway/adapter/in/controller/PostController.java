@@ -1,8 +1,7 @@
 package com.dailyword.gateway.adapter.in.controller;
 
 import com.dailyword.common.response.APIResponse;
-import com.dailyword.gateway.adapter.out.client.PostClient;
-import com.dailyword.gateway.application.usecase.PostUpdateUsecase;
+import com.dailyword.gateway.application.usecase.post.PostUpdateUsecase;
 import com.dailyword.gateway.application.usecase.post.PostCreateUsecase;
 import com.dailyword.gateway.application.usecase.post.PostPageUsecase;
 import com.dailyword.gateway.application.usecase.post.PostReadUsecase;
@@ -16,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/gateway")

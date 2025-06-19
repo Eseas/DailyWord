@@ -4,7 +4,7 @@ import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.adapter.out.client.MemberClient;
 import com.dailyword.gateway.dto.member.GetMemberInfo;
 import com.dailyword.gateway.dto.member.PatchMemberInfo;
-import com.dailyword.gateway.application.service.SocialLoginUsecaseImpl;
+import com.dailyword.gateway.application.service.member.SocialLoginUsecaseImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

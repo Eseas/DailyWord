@@ -1,4 +1,4 @@
-package com.dailyword.gateway.application.usecase;
+package com.dailyword.gateway.application.usecase.member;
 
 import com.dailyword.gateway.dto.auth.TokenResponse;
 

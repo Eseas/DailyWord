@@ -3,7 +3,7 @@ package com.dailyword.gateway.adapter.in.controller;
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.dto.auth.RefreshTokenRequest;
 import com.dailyword.gateway.dto.auth.TokenResponse;
-import com.dailyword.gateway.application.usecase.RefreshTokenUsecase;
+import com.dailyword.gateway.application.usecase.auth.RefreshTokenUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
