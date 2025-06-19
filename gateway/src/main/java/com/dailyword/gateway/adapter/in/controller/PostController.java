@@ -1,14 +1,8 @@
 package com.dailyword.gateway.adapter.in.controller;
 
 import com.dailyword.common.response.APIResponse;
-import com.dailyword.gateway.application.usecase.post.PostUpdateUsecase;
-import com.dailyword.gateway.application.usecase.post.PostCreateUsecase;
-import com.dailyword.gateway.application.usecase.post.PostPageUsecase;
-import com.dailyword.gateway.application.usecase.post.PostReadUsecase;
-import com.dailyword.gateway.dto.post.CreatePostRequest;
-import com.dailyword.gateway.dto.post.PostDetailResponse;
-import com.dailyword.gateway.dto.post.PostPageResponse;
-import com.dailyword.gateway.dto.post.PostUpdateRequest;
+import com.dailyword.gateway.application.usecase.post.*;
+import com.dailyword.gateway.dto.post.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +19,7 @@ public class PostController {
     private final PostPageUsecase postPageUsecase;
     private final PostReadUsecase postReadUsecase;
     private final PostUpdateUsecase postUpdateUsecase;
+    private final PostDeleteUsecase postDeleteUsecase;
 
     @GetMapping
     public ResponseEntity<APIResponse<List<PostPageResponse>>> getPosts(
@@ -56,5 +51,14 @@ public class PostController {
     ) {
         String result = postUpdateUsecase.update(refCode, request);
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(result));
+    }
+
+    @DeleteMapping("/{refCode}")
+    public ResponseEntity<APIResponse<String>> deletePost(
+            @PathVariable String refCode,
+            @RequestBody PostDeleteRequest request
+    ) {
+        String result = postDeleteUsecase.delete(refCode, request);
+        return ResponseEntity.ok(APIResponse.success(result));
     }
 }

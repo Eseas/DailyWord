@@ -40,4 +40,8 @@ public class Post extends BaseUuidEntity {
     public void updateContent(String content) {
         this.content = content;
     }
+
+    public void delete() {
+        this.status = PostStatus.DELETED;
+    }
 }

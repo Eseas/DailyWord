@@ -1,14 +1,8 @@
 package com.dailyword.post.facade;
 
 import com.dailyword.common.response.APIResponse;
-import com.dailyword.post.application.usecase.PostCreateUsecase;
-import com.dailyword.post.application.usecase.PostPageUsecase;
-import com.dailyword.post.application.usecase.PostReadUsecase;
-import com.dailyword.post.application.usecase.PostUpdateUsecase;
-import com.dailyword.post.facade.dto.PostCreateRequest;
-import com.dailyword.post.facade.dto.PostDetailResponse;
-import com.dailyword.post.facade.dto.PostPageResponse;
-import com.dailyword.post.facade.dto.PostUpdateRequest;
+import com.dailyword.post.application.usecase.*;
+import com.dailyword.post.facade.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +19,7 @@ public class PostFacade {
     private final PostCreateUsecase postCreateUsecase;
     private final PostReadUsecase postReadUsecase;
     private final PostUpdateUsecase postUpdateUsecase;
+    private final PostDeleteUsecase postDeleteUsecase;
 
     @GetMapping
     public ResponseEntity<APIResponse<List<PostPageResponse>>> getPosts(
@@ -52,5 +47,14 @@ public class PostFacade {
     ) {
         String updatedRefCode = postUpdateUsecase.update(request.toCommand(refCode));
         return ResponseEntity.ok(APIResponse.success(updatedRefCode));
+    }
+
+    @DeleteMapping("/{refCode}")
+    public ResponseEntity<APIResponse<String>> deletePost(
+            @PathVariable String refCode,
+            @RequestBody PostDeleteRequest request
+    ) {
+        String result = postDeleteUsecase.delete(request.toCommand(refCode));
+        return ResponseEntity.ok(APIResponse.success(result));
     }
 }
