@@ -36,4 +36,8 @@ public class Post extends BaseUuidEntity {
     public static Post create(Long memberId, String content) {
         return new Post(memberId, content);
     }
+
+    public void updateContent(String content) {
+        this.content = content;
+    }
 }
