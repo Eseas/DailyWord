@@ -13,7 +13,7 @@ public class PostCreateService implements PostCreateUsecase {
     private final PostClient postClient;
 
     @Override
-    public Long createPost(CreatePostRequest request) {
-        return postClient.createPost(request);
+    public String createPost(CreatePostRequest request) {
+        return postClient.createPost(request).getData();
     }
 }

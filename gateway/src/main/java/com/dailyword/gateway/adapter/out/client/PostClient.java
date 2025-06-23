@@ -11,7 +11,7 @@ import java.util.List;
 public interface PostClient {
 
     @PostMapping("/internal/post")
-    Long createPost(@RequestBody CreatePostRequest request);
+    APIResponse<String> createPost(@RequestBody CreatePostRequest request);
 
     @GetMapping("/internal/post")
     APIResponse<List<PostPageResponse>> getPosts(

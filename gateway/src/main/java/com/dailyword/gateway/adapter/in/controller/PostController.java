@@ -38,10 +38,10 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<APIResponse<Long>> createPost(@RequestBody CreatePostRequest request) {
-        Long postId = postCreateUsecase.createPost(request);
+    public ResponseEntity<APIResponse<String>> createPost(@RequestBody CreatePostRequest request) {
+        String postRefCode = postCreateUsecase.createPost(request);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(APIResponse.success(postId));
+        return ResponseEntity.status(HttpStatus.CREATED).body(APIResponse.success(postRefCode));
     }
 
     @PutMapping("/{refCode}")
