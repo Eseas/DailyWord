@@ -2,6 +2,7 @@ package com.dailyword.post.adapter.in.facade;
 
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.post.application.usecase.GetMemberInfoUseCase;
+import com.dailyword.post.application.usecase.GetMemberPKUseCase;
 import com.dailyword.post.application.usecase.LoginUseCase;
 import com.dailyword.post.dto.member.*;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,14 @@ public class MemberFacade {
 
     private final LoginUseCase loginUseCase;
     private final GetMemberInfoUseCase getMemberInfoUseCase;
+    private final GetMemberPKUseCase getMemberPKUseCase;
+
+    @GetMapping("/internal/members/id-by-ref-code/{refCode}")
+    public ResponseEntity<APIResponse<Long>> getMemberPK(@PathVariable String refCode) {
+        Long memberId = getMemberPKUseCase.getMemberPKByRefCode(refCode);
+
+        return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(memberId));
+    }
 
     @GetMapping("/internal/members/{id}")
     public ResponseEntity<APIResponse<GetMemberInfo.Response>> getMemberInfo(
