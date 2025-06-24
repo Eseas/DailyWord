@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "memberClient", url = "${module.member.url}")
 public interface MemberClient {
 
+    @GetMapping("/internal/members/id-by-ref-code/{refCode}")
+    APIResponse<Long> idByRefCode(@PathVariable("refCode") String refCode);
+
     @GetMapping("/internal/member/{id}")
     APIResponse<GetMemberInfo.Response> getMemberInfo(@PathVariable("id") Long memberId);
 

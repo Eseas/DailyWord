@@ -1,6 +1,7 @@
 package com.dailyword.gateway.adapter.out.client;
 
 import com.dailyword.common.response.APIResponse;
+import com.dailyword.gateway.application.service.post.command.PostCreateCommand;
 import com.dailyword.gateway.dto.post.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.util.List;
 public interface PostClient {
 
     @PostMapping("/internal/post")
-    APIResponse<String> createPost(@RequestBody CreatePostRequest request);
+    APIResponse<String> createPost(@RequestBody PostCreateCommand request);
 
     @GetMapping("/internal/post")
     APIResponse<List<PostPageResponse>> getPosts(
