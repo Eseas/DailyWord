@@ -18,8 +18,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
             m.nickname AS nickname,
             c.createdAt AS createdAt
         FROM
-            Comment c,
-            Member m
+            Comment c
+        LEFT JOIN Member m ON m.id = c.authorId
         WHERE
             c.postId = :postId
         AND c.status = :status
