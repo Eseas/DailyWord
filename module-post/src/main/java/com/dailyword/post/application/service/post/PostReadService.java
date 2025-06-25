@@ -2,13 +2,16 @@ package com.dailyword.post.application.service.post;
 
 import com.dailyword.post.application.usecase.post.PostReadUsecase;
 import com.dailyword.post.domain.model.Post;
+import com.dailyword.post.domain.model.PostStatus;
 import com.dailyword.post.facade.dto.PostDetailResponse;
 import com.dailyword.post.repository.PostRepository;
+import com.dailyword.post.repository.projection.PostView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import static com.dailyword.common.response.ErrorCode.NOT_FOUND_POST;
+import static com.dailyword.post.domain.model.PostStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -19,8 +22,9 @@ public class PostReadService implements PostReadUsecase {
     @Override
     @Transactional(readOnly = true)
     public PostDetailResponse getPost(String postRefCode) {
-        Post post = postRepository.findByRefCode(postRefCode)
+        PostView post = postRepository.findPostDetailByRefCode(postRefCode, ACTIVE)
                 .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_POST.getMessage()));
-        return new PostDetailResponse(post);
+
+        return PostDetailResponse.toDto(post);
     }
 }
