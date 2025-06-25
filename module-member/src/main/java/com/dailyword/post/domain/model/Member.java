@@ -19,6 +19,8 @@ public class Member extends BaseUuidEntity {
 
     private String name;
 
+    private String nickname;
+
     private String loginId;
 
     private LocalDate birthday;
