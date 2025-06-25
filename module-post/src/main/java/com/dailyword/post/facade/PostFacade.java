@@ -1,7 +1,7 @@
 package com.dailyword.post.facade;
 
 import com.dailyword.common.response.APIResponse;
-import com.dailyword.post.application.usecase.*;
+import com.dailyword.post.application.usecase.post.*;
 import com.dailyword.post.facade.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

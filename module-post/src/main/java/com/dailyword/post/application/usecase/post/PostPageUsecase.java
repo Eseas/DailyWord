@@ -1,4 +1,4 @@
-package com.dailyword.post.application.usecase;
+package com.dailyword.post.application.usecase.post;
 
 import com.dailyword.post.facade.dto.PostPageResponse;
 

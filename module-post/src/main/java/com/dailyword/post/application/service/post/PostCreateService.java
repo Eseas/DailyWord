@@ -1,6 +1,6 @@
-package com.dailyword.post.application.service;
+package com.dailyword.post.application.service.post;
 
-import com.dailyword.post.application.usecase.PostCreateUsecase;
+import com.dailyword.post.application.usecase.post.PostCreateUsecase;
 import com.dailyword.post.application.usecase.command.CreatePostCommand;
 import com.dailyword.post.domain.model.Post;
 import com.dailyword.post.repository.PostRepository;
