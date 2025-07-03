@@ -3,6 +3,7 @@ package com.dailyword.post.application.service.comment;
 import com.dailyword.common.exception.BusinessException;
 import com.dailyword.common.response.ErrorCode;
 import com.dailyword.post.application.usecase.comment.GetPostCommentsUsecase;
+import com.dailyword.post.domain.model.PostStatus;
 import com.dailyword.post.facade.dto.PostCommentsResponse;
 import com.dailyword.post.repository.CommentRepository;
 import com.dailyword.post.repository.PostRepository;
@@ -28,7 +29,7 @@ public class GetPostCommentsService implements GetPostCommentsUsecase {
     public PostCommentsResponse getComments(String refCode, int page, int pageSize) {
         Pageable pageable = PageRequest.of(page, pageSize);
 
-        Long postId = postRepository.findByRefCode(refCode)
+        Long postId = postRepository.findByRefCodeAndStatus(refCode, PostStatus.ACTIVE)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST.getMessage()))
                 .getId();
 

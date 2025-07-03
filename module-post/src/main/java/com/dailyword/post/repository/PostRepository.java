@@ -12,6 +12,9 @@ import java.util.Optional;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
+    @Query("SELECT p FROM Post p WHERE p.refCode = :refCode AND p.status = :postStatus")
+    Optional<Post> findByRefCodeAndStatus(String refCode, PostStatus postStatus);
+
     @Query("""
         SELECT
             p.refCode AS PostRefCode,
