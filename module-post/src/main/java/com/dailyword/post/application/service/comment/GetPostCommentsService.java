@@ -3,7 +3,6 @@ package com.dailyword.post.application.service.comment;
 import com.dailyword.common.exception.BusinessException;
 import com.dailyword.common.response.ErrorCode;
 import com.dailyword.post.application.usecase.comment.GetPostCommentsUsecase;
-import com.dailyword.post.domain.model.CommentStatus;
 import com.dailyword.post.facade.dto.PostCommentsResponse;
 import com.dailyword.post.repository.CommentRepository;
 import com.dailyword.post.repository.PostRepository;
@@ -19,7 +18,7 @@ import static com.dailyword.post.domain.model.CommentStatus.*;
 
 @Service
 @RequiredArgsConstructor
-public class GetPostcommentsService implements GetPostCommentsUsecase {
+public class GetPostCommentsService implements GetPostCommentsUsecase {
 
     private final PostRepository postRepository;
     private final CommentRepository commentRepository;
