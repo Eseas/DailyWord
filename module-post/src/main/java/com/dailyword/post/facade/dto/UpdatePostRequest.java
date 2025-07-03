@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PostUpdateRequest {
+public class UpdatePostRequest {
     private Long memberId;
     private String content;
 

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PostDeleteRequest {
+public class DeletePostRequest {
     private Long memberId;
 
     public DeletePostCommand toCommand(String refCode) {
