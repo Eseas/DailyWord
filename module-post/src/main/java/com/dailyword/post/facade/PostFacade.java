@@ -36,14 +36,14 @@ public class PostFacade {
     }
 
     @PostMapping
-    public String createPost(@RequestBody PostCreateRequest request) {
+    public String createPost(@RequestBody CreatePostRequest request) {
         return postCreateUsecase.createPost(request.toCommand());
     }
 
     @PutMapping("/{refCode}")
     public ResponseEntity<APIResponse<String>> updatePost(
             @PathVariable String refCode,
-            @RequestBody PostUpdateRequest request
+            @RequestBody UpdatePostRequest request
     ) {
         String updatedRefCode = postUpdateUsecase.update(request.toCommand(refCode));
         return ResponseEntity.ok(APIResponse.success(updatedRefCode));
@@ -52,7 +52,7 @@ public class PostFacade {
     @DeleteMapping("/{refCode}")
     public ResponseEntity<APIResponse<String>> deletePost(
             @PathVariable String refCode,
-            @RequestBody PostDeleteRequest request
+            @RequestBody DeletePostRequest request
     ) {
         String result = postDeleteUsecase.delete(request.toCommand(refCode));
         return ResponseEntity.ok(APIResponse.success(result));

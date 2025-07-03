@@ -23,4 +23,16 @@ public class Comment extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private CommentStatus status;
+
+    private Comment(Long postId, Long authorId, String content) {
+        this.id = id;
+        this.postId = postId;
+        this.authorId = authorId;
+        this.content = content;
+        this.status = CommentStatus.ACTIVE;
+    }
+
+    public Comment create(Long postId, Long authorId, String content) {
+        return new Comment(postId, authorId, content);
+    }
 }
