@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name = "module-post", url = "${internal.post.url}")
+@FeignClient(name = "postClient", url = "${internal.post.url}")
 public interface PostClient {
 
     @PostMapping("/internal/post")
