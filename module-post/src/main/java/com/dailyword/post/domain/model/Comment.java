@@ -1,6 +1,7 @@
 package com.dailyword.post.domain.model;
 
 import com.dailyword.common.domain.BaseEntity;
+import com.dailyword.common.response.ErrorCode;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,5 +35,9 @@ public class Comment extends BaseEntity {
 
     public Comment create(Long postId, Long authorId, String content) {
         return new Comment(postId, authorId, content);
+    }
+
+    public void delete() {
+        this.status = CommentStatus.DELETED;
     }
 }

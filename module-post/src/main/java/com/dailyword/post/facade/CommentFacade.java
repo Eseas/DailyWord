@@ -1,7 +1,9 @@
 package com.dailyword.post.facade;
 
 import com.dailyword.common.response.APIResponse;
+import com.dailyword.post.application.usecase.command.DeleteCommentCommand;
 import com.dailyword.post.application.usecase.comment.CreateCommentUsecase;
+import com.dailyword.post.application.usecase.comment.DeleteCommentUsecase;
 import com.dailyword.post.application.usecase.comment.GetPostCommentsUsecase;
 import com.dailyword.post.facade.dto.CreateCommentRequest;
 import com.dailyword.post.facade.dto.CreateCommentResponse;
@@ -18,6 +20,7 @@ public class CommentFacade {
 
     private final GetPostCommentsUsecase getPostCommentsUsecase;
     private final CreateCommentUsecase createCommentUsecase;
+    private final DeleteCommentUsecase deleteCommentUsecase;
 
     @GetMapping("/posts/{refCode}/comments")
     public ResponseEntity<APIResponse<PostCommentsResponse>> getComments(
@@ -38,5 +41,17 @@ public class CommentFacade {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(APIResponse.success(createCommentUsecase.createComment(refCode, request)));
+    }
+
+    @DeleteMapping("/posts/{refCode}/comments/{commentId}")
+    public ResponseEntity<APIResponse> deleteComment(
+            @PathVariable String refCode,
+            @PathVariable Long commentId,
+            @RequestParam Long memberId
+    ) {
+        deleteCommentUsecase.deleteComment(new DeleteCommentCommand(refCode, commentId, memberId));
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success());
     }
 }
