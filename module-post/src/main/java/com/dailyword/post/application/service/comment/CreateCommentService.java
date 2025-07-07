@@ -11,6 +11,7 @@ import com.dailyword.post.repository.CommentRepository;
 import com.dailyword.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class CreateCommentService implements CreateCommentUsecase {
     private final CommentRepository commentRepository;
 
     @Override
+    @Transactional
     public CreateCommentResponse createComment(String refCode, CreateCommentRequest request) {
         Long postId = postRepository.findByRefCodeAndStatus(refCode, PostStatus.ACTIVE)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST.getMessage()))

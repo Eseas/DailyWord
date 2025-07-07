@@ -11,6 +11,7 @@ import com.dailyword.post.repository.CommentRepository;
 import com.dailyword.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,7 @@ public class DeleteCommentService implements DeleteCommentUsecase {
     private final PostRepository postRepository;
 
     @Override
+    @Transactional
     public void deleteComment(DeleteCommentCommand command) {
         Long postId = postRepository.findByRefCodeAndStatus(command.getPostRefCode(), PostStatus.ACTIVE)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST.getMessage()))
