@@ -32,10 +32,11 @@ public class CommentFacade {
 
     @PostMapping("/posts/{refCode}/comments/")
     public ResponseEntity<APIResponse<CreateCommentResponse>> createComment(
+            @PathVariable String refCode,
             @RequestBody CreateCommentRequest request
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(APIResponse.success(createCommentUsecase.createComment(request)));
+                .body(APIResponse.success(createCommentUsecase.createComment(refCode, request)));
     }
 }

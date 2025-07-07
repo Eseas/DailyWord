@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateCommentRequest {
 
-    String postRefCode;
     String content;
     Long memberId;
 }

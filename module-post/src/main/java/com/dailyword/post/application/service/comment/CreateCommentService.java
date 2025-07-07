@@ -20,8 +20,8 @@ public class CreateCommentService implements CreateCommentUsecase {
     private final CommentRepository commentRepository;
 
     @Override
-    public CreateCommentResponse createComment(CreateCommentRequest request) {
-        Long postId = postRepository.findByRefCodeAndStatus(request.getPostRefCode(), PostStatus.ACTIVE)
+    public CreateCommentResponse createComment(String refCode, CreateCommentRequest request) {
+        Long postId = postRepository.findByRefCodeAndStatus(refCode, PostStatus.ACTIVE)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST.getMessage()))
                 .getId();
 
