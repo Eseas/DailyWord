@@ -3,6 +3,7 @@ package com.dailyword.post.application.service.post;
 import com.dailyword.post.application.usecase.post.PostUpdateUsecase;
 import com.dailyword.post.application.usecase.command.UpdatePostCommand;
 import com.dailyword.post.domain.model.Post;
+import com.dailyword.post.domain.model.PostStatus;
 import com.dailyword.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class PostUpdateService implements PostUpdateUsecase {
     @Override
     @Transactional
     public String update(UpdatePostCommand command) {
-        Post post = postRepository.findByRefCode(command.getRefCode())
+        Post post = postRepository.findByRefCodeAndStatus(command.getRefCode(), PostStatus.ACTIVE)
                 .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_POST.getMessage()));
 
         if (!post.getAuthorId().equals(command.getMemberId())) {
