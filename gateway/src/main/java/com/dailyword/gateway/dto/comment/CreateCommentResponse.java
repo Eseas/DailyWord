@@ -1,17 +1,13 @@
 package com.dailyword.gateway.dto.comment;
 
-import com.dailyword.post.domain.model.Comment;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateCommentResponse {
     private Long commentId;
     private String content;
-
-    private CreateCommentResponse(Long commentId, String content) {
-        this.commentId = commentId;
-        this.content = content;
-    }
-
-    public static CreateCommentResponse toDto(Comment comment) {
-        return new CreateCommentResponse(comment.getId(), comment.getContent());
-    }
 }
