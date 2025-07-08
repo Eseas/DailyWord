@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/gateway")
-public class MemberGatewayController {
+public class MemberController {
 
     private final MemberClient memberClient;
     private final SocialLoginUsecaseImpl socialLoginUsecase;
