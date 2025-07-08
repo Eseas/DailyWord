@@ -21,7 +21,7 @@ public class AuthFacade {
     private final GenerateTokenUsecase generateTokenUsecase;
     private final RefreshTokenUsecase refreshTokenUsecase;
 
-    @PostMapping("/token")
+    @PostMapping("/tokens")
     public ResponseEntity<APIResponse<TokenResponse>> generateToken(@RequestBody TokenRequest request) {
         TokenResponse tokenResponse = generateTokenUsecase.generateToken(request.getSubject());
         return ResponseEntity.ok(APIResponse.success(tokenResponse));

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient(name = "authClient", url = "${module.auth.url}")
 public interface AuthClient {
 
-    @GetMapping("/")
+    @GetMapping("/tokens/validate")
     APIResponse<TokenInfoResponse> verifyToken(@RequestBody TokenVerifyRequest request);
 
-    @PostMapping("/token")
+    @PostMapping("/tokens")
     APIResponse<TokenResponse> generateToken(@RequestBody TokenRequest request);
 
     @PostMapping("/refresh")
