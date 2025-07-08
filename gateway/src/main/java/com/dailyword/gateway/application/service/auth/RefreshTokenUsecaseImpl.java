@@ -15,6 +15,6 @@ public class RefreshTokenUsecaseImpl implements RefreshTokenUsecase {
 
     @Override
     public TokenResponse refreshToken(RefreshTokenRequest request) {
-        return authClient.refreshToken(request);
+        return authClient.refreshToken(request).getData();
     }
 }

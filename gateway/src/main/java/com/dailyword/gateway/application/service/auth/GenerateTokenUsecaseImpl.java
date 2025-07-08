@@ -15,6 +15,6 @@ public class GenerateTokenUsecaseImpl implements GenerateTokenUsecase {
 
     @Override
     public TokenResponse generateToken(TokenRequest request) {
-        return authClient.generateToken(request);
+        return authClient.generateToken(request).getData();
     }
 }

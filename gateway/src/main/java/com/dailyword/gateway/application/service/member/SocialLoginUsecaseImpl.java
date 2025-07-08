@@ -38,7 +38,7 @@ public class SocialLoginUsecaseImpl implements SocialLoginUsecase {
             }
         }
 
-        TokenResponse tokenResponse = authClient.generateToken(new TokenRequest(memberInfo.getMemberId()));
+        TokenResponse tokenResponse = authClient.generateToken(new TokenRequest(memberInfo.getMemberId())).getData();
 
         return tokenResponse;
     }
