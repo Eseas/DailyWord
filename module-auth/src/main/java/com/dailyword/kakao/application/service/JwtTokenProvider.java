@@ -21,18 +21,18 @@ public class JwtTokenProvider {
 
     private final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS256;
 
-    public TokenResponse generateToken(String subject) {
+    public TokenResponse generateToken(String memberRefCode) {
         Date now = new Date();
 
         String accessToken = Jwts.builder()
-                .setSubject(subject)
+                .setSubject(memberRefCode)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + jwtProperties.getAccessTokenExpirationMs()))
                 .signWith(Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes()), SIGNATURE_ALGORITHM)
                 .compact();
 
         String refreshToken = Jwts.builder()
-                .setSubject(subject)
+                .setSubject(memberRefCode)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + jwtProperties.getRefreshTokenExpirationMs()))
                 .signWith(Keys.hmacShaKeyFor(jwtProperties.getSecretKey().getBytes()), SIGNATURE_ALGORITHM)

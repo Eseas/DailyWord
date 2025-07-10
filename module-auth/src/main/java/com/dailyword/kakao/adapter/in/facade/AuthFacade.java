@@ -29,7 +29,7 @@ public class AuthFacade {
 
     @PostMapping("/tokens")
     public ResponseEntity<APIResponse<TokenResponse>> generateToken(@RequestBody TokenRequest request) {
-        TokenResponse tokenResponse = generateTokenUsecase.generateToken(request.getSubject());
+        TokenResponse tokenResponse = generateTokenUsecase.generateToken(request.getMemberRefCode());
         return ResponseEntity.ok(APIResponse.success(tokenResponse));
     }
 

@@ -24,7 +24,7 @@ public class MemberController {
      * @return
      */
     @GetMapping("/member/{memberId}")
-    public ResponseEntity<APIResponse<GetMemberInfo.Response>> getMember(
+    public ResponseEntity<APIResponse<GetMemberInfo>> getMember(
             @PathVariable Long memberId
     ) {
         var memberInfo = memberClient.getMemberInfo(memberId);

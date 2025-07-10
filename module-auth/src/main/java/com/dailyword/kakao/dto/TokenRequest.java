@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class TokenRequest {
-    private String subject;
+    private String memberRefCode;
 }
