@@ -1,7 +1,6 @@
 package com.dailyword.gateway.filter;
 
 import com.dailyword.gateway.adapter.out.client.AuthClient;
-import com.dailyword.gateway.dto.auth.TokenVerifyRequest;
 import com.dailyword.gateway.exception.AuthApiException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -51,7 +50,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private String resolveToken(HttpServletRequest request) {
         String bearer = request.getHeader("Authorization");
         if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
-            return bearer.substring(7);
+            return bearer;
         }
         return null;
     }
