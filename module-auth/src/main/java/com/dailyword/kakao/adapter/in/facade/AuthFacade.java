@@ -30,12 +30,16 @@ public class AuthFacade {
     @PostMapping("/tokens")
     public ResponseEntity<APIResponse<TokenResponse>> generateToken(@RequestBody TokenRequest request) {
         TokenResponse tokenResponse = generateTokenUsecase.generateToken(request.getMemberRefCode());
-        return ResponseEntity.ok(APIResponse.success(tokenResponse));
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success(tokenResponse));
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<TokenResponse> refreshToken(@RequestBody RefreshTokenRequest request) {
+    public ResponseEntity<APIResponse<TokenResponse>> refreshToken(@RequestBody RefreshTokenRequest request) {
         TokenResponse tokenResponse = refreshTokenUsecase.refreshToken(request.getRefreshToken());
-        return ResponseEntity.ok(tokenResponse);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success(tokenResponse));
     }
 }
