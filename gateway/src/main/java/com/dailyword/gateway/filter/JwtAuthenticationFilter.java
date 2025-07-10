@@ -31,12 +31,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        TokenVerifyRequest requestDto = resolveToken(request);
+        String accessToken = resolveToken(request);
 
-        if (StringUtils.hasText(requestDto.getAccessToken())) {
+        if (StringUtils.hasText(accessToken)) {
             try {
                 // 🔥 module-auth 호출해서 subject(refCode) 반환받음
-                String refCode = authClient.verifyToken(requestDto).getData().getMemberRefCode();
+                String refCode = authClient.verifyToken(accessToken).getData().getMemberRefCode();
 
                 Authentication authentication = new UsernamePasswordAuthenticationToken(refCode, null, List.of());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -48,10 +48,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private TokenVerifyRequest resolveToken(HttpServletRequest request) {
+    private String resolveToken(HttpServletRequest request) {
         String bearer = request.getHeader("Authorization");
         if (StringUtils.hasText(bearer) && bearer.startsWith("Bearer ")) {
-            return TokenVerifyRequest.create(bearer.substring(7));
+            return bearer.substring(7);
         }
         return null;
     }
