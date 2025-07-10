@@ -1,17 +1,14 @@
 package com.dailyword.kakao.adapter.in.facade;
 
-import com.dailyword.kakao.dto.RefreshTokenRequest;
-import com.dailyword.kakao.dto.TokenRequest;
-import com.dailyword.kakao.dto.TokenResponse;
+import com.dailyword.kakao.application.usecase.ValidateTokenUsecase;
+import com.dailyword.kakao.dto.*;
 import com.dailyword.kakao.application.usecase.GenerateTokenUsecase;
 import com.dailyword.kakao.application.usecase.RefreshTokenUsecase;
 import com.dailyword.common.response.APIResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/internal/auth")
@@ -20,6 +17,15 @@ public class AuthFacade {
 
     private final GenerateTokenUsecase generateTokenUsecase;
     private final RefreshTokenUsecase refreshTokenUsecase;
+    private final ValidateTokenUsecase validateTokenUsecase;
+
+    @GetMapping("/tokens/validate")
+    public ResponseEntity<APIResponse<TokenInfoResponse>> validateToken(
+            @RequestHeader("Authorization") String bearerToken
+    ) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success(validateTokenUsecase.validateToken(bearerToken)));
+    }
 
     @PostMapping("/tokens")
     public ResponseEntity<APIResponse<TokenResponse>> generateToken(@RequestBody TokenRequest request) {
