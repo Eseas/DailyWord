@@ -1,34 +1,17 @@
 package com.dailyword.gateway.dto.member;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
+@Getter
+@NoArgsConstructor
 public class GetMemberInfo {
 
-    public static class Response {
-        String memberId;
-        String memberLoginId;
-        String memberName;
-        String memberEmail;
-        LocalDate memberBirthday;
-
-        public String getMemberId() {
-            return memberId;
-        }
-
-        public String getMemberLoginId() {
-            return memberLoginId;
-        }
-
-        public String getMemberName() {
-            return memberName;
-        }
-
-        public String getMemberEmail() {
-            return memberEmail;
-        }
-
-        public LocalDate getMemberBirthday() {
-            return memberBirthday;
-        }
-    }
+    String memberRefCode;
+    String memberLoginId;
+    String memberName;
+    String memberEmail;
+    LocalDate memberBirthday;
 }

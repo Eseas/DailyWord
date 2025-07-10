@@ -26,7 +26,7 @@ public class SocialLoginUsecaseImpl implements SocialLoginUsecase {
 
         KakaoUserInfoResponse kakaoUserInfo = kakaoClient.getUserInfo(kakaoCode).getData();
 
-        GetMemberInfo.Response memberInfo = null;
+        GetMemberInfo memberInfo = null;
 
         try {
             memberInfo = memberClient.login(kakaoUserInfo).getData();
@@ -38,8 +38,6 @@ public class SocialLoginUsecaseImpl implements SocialLoginUsecase {
             }
         }
 
-        TokenResponse tokenResponse = authClient.generateToken(new TokenRequest(memberInfo.getMemberId())).getData();
-
-        return tokenResponse;
+        return authClient.generateToken(new TokenRequest(memberInfo.getMemberRefCode())).getData();
     }
 }

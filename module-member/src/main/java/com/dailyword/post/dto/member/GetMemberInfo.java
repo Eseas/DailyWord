@@ -7,14 +7,14 @@ import java.time.LocalDate;
 public class GetMemberInfo {
 
     public static class Response {
-        Long memberId;
+        String memberRefCode;
         String memberLoginId;
         String memberName;
         String memberEmail;
         LocalDate memberBirthday;
 
         private Response(Member member) {
-            this.memberId = member.getId();
+            this.memberRefCode = member.getRefCode();
             this.memberLoginId = member.getLoginId();
             this.memberName = member.getName();
             this.memberEmail = member.getEmail();

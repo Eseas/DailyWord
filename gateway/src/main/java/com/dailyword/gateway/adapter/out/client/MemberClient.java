@@ -14,15 +14,15 @@ public interface MemberClient {
 
     @GetMapping("/internal/members/id-by-ref-code/{refCode}")
     APIResponse<Long> idByRefCode(@PathVariable("refCode") String refCode);
-
+    //TODO - change GetMemberInfo multi use
     @GetMapping("/internal/member/{id}")
-    APIResponse<GetMemberInfo.Response> getMemberInfo(@PathVariable("id") Long memberId);
+    APIResponse<GetMemberInfo> getMemberInfo(@PathVariable("id") Long memberId);
 
     @PostMapping("/internal/members/login")
-    APIResponse<GetMemberInfo.Response> login(@RequestBody KakaoUserInfoResponse kakaoUserInfo);
+    APIResponse<GetMemberInfo> login(@RequestBody KakaoUserInfoResponse kakaoUserInfo);
 
     @PostMapping("/internal/members")
-    APIResponse<GetMemberInfo.Response> register(@RequestBody KakaoUserInfoResponse kakaoUserInfo);
+    APIResponse<GetMemberInfo> register(@RequestBody KakaoUserInfoResponse kakaoUserInfo);
 
     @PatchMapping("/internal/members/{memberId}/info")
     void patchMemberInfo(@PathVariable("memberId") Long memberId,
