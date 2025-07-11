@@ -46,10 +46,14 @@ public class RefreshTokenUsecaseImpl implements RefreshTokenUsecase {
         );
 
         return TokenResponse.builder()
-                .accessToken(newToken.getAccessToken())
+                .accessToken(makeBearerToken(newToken.getAccessToken()))
                 .refreshToken(newToken.getRefreshToken())
                 .accessTokenExpiresIn(newToken.getAccessTokenExpiresIn())
                 .refreshTokenExpiresIn(newToken.getRefreshTokenExpiresIn())
                 .build();
+    }
+
+    private String makeBearerToken(String token) {
+        return "Bearer " + token;
     }
 }

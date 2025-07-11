@@ -16,10 +16,14 @@ public class GenerateTokenUsecaseImpl implements GenerateTokenUsecase {
         TokenResponse token = jwtTokenProvider.generateToken(subject);
 
         return TokenResponse.builder()
-                .accessToken(token.getAccessToken())
+                .accessToken(makeBearerToken(token.getAccessToken()))
                 .refreshToken(token.getRefreshToken())
                 .accessTokenExpiresIn(token.getAccessTokenExpiresIn())
                 .refreshTokenExpiresIn(token.getRefreshTokenExpiresIn())
                 .build();
+    }
+
+    private String makeBearerToken(String token) {
+        return "Bearer " + token;
     }
 }
