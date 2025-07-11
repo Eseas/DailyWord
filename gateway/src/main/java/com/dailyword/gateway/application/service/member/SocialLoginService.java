@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class SocialLoginUsecaseImpl implements SocialLoginUsecase {
+public class SocialLoginService implements SocialLoginUsecase {
 
     private final KakaoClient kakaoClient;
     private final MemberClient memberClient;

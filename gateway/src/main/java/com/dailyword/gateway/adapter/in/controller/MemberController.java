@@ -5,7 +5,7 @@ import com.dailyword.gateway.adapter.out.client.MemberClient;
 import com.dailyword.gateway.dto.auth.TokenResponse;
 import com.dailyword.gateway.dto.member.GetMemberInfo;
 import com.dailyword.gateway.dto.member.PatchMemberInfo;
-import com.dailyword.gateway.application.service.member.SocialLoginUsecaseImpl;
+import com.dailyword.gateway.application.service.member.SocialLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ import java.time.Duration;
 public class MemberController {
 
     private final MemberClient memberClient;
-    private final SocialLoginUsecaseImpl socialLoginUsecase;
+    private final SocialLoginService socialLoginUsecase;
 
     /**
      * 회원 정보 조회

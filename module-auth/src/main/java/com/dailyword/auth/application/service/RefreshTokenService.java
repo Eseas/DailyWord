@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
-public class RefreshTokenUsecaseImpl implements RefreshTokenUsecase {
+public class RefreshTokenService implements RefreshTokenUsecase {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final RedisTemplate<String, String> redisTemplate;

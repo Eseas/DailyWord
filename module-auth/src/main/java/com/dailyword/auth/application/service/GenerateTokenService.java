@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class GenerateTokenUsecaseImpl implements GenerateTokenUsecase {
+public class GenerateTokenService implements GenerateTokenUsecase {
 
     private final JwtTokenProvider jwtTokenProvider;
 
