@@ -2,13 +2,18 @@ package com.dailyword.gateway.adapter.in.controller;
 
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.adapter.out.client.MemberClient;
+import com.dailyword.gateway.dto.auth.TokenResponse;
 import com.dailyword.gateway.dto.member.GetMemberInfo;
 import com.dailyword.gateway.dto.member.PatchMemberInfo;
 import com.dailyword.gateway.application.service.member.SocialLoginUsecaseImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.Duration;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,8 +46,20 @@ public class MemberController {
             @PathVariable String type,
             @RequestParam String code
     ) {
-        socialLoginUsecase.kakaoLogin(code);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        TokenResponse token = socialLoginUsecase.kakaoLogin(code);
+
+        ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", token.getRefreshToken())
+                .httpOnly(true)
+                .secure(true)
+                .path("/")
+                .maxAge(Duration.ofDays(30))
+                .sameSite("Strict")
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .header("Authorization", token.getAccessToken())
+                .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
+                .build();
     }
 
     /**
