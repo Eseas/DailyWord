@@ -14,6 +14,7 @@ public interface MemberClient {
 
     @GetMapping("/internal/members/id-by-ref-code/{refCode}")
     APIResponse<Long> idByRefCode(@PathVariable("refCode") String refCode);
+
     //TODO - change GetMemberInfo multi use
     @GetMapping("/internal/member/{id}")
     APIResponse<GetMemberInfo> getMemberInfo(@PathVariable("id") Long memberId);
