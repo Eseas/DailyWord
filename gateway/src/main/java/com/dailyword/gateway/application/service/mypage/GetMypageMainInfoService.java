@@ -25,15 +25,9 @@ public class GetMypageMainInfoService implements GetMypageMainInfoUsecase {
         Long memberId = memberClient.idByRefCode(refCode).getData();
 
         GetMemberInfo memberInfo = memberClient.getMemberInfo(memberId).getData();
-        
-        List<LocalDate> qtProgressDates;
-        try {
-            QtProgressResponse qtProgress = postClient.getQtProgressDates(memberId).getData();
-            qtProgressDates = qtProgress.getQtProgressDates();
-        } catch (Exception e) {
-            qtProgressDates = Collections.emptyList();
-        }
 
-        return MypageMainResponse.of(memberInfo, qtProgressDates);
+        QtProgressResponse qtProgress = postClient.getQtProgressDates(memberId).getData();
+
+        return MypageMainResponse.create(memberInfo, qtProgress);
     }
 }
