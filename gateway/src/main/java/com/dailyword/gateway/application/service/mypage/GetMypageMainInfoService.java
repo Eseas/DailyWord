@@ -9,10 +9,6 @@ import com.dailyword.gateway.dto.mypage.QtProgressResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class GetMypageMainInfoService implements GetMypageMainInfoUsecase {
