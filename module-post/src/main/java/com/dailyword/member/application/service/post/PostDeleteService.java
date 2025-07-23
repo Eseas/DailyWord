@@ -3,6 +3,7 @@ package com.dailyword.member.application.service.post;
 import com.dailyword.member.application.usecase.post.PostDeleteUsecase;
 import com.dailyword.member.application.usecase.command.DeletePostCommand;
 import com.dailyword.member.domain.model.Post;
+import com.dailyword.member.domain.model.PostStatus;
 import com.dailyword.member.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class PostDeleteService implements PostDeleteUsecase {
     @Override
     @Transactional
     public String delete(DeletePostCommand command) {
-        Post post = postRepository.findByRefCode(command.getRefCode())
+        Post post = postRepository.findByRefCodeAndStatus(command.getRefCode(), PostStatus.ACTIVE)
                 .orElseThrow(() -> new IllegalArgumentException(NOT_FOUND_POST.getMessage()));
 
         if (!post.getAuthorId().equals(command.getMemberId())) {
