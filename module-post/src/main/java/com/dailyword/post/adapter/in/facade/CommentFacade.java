@@ -1,13 +1,13 @@
-package com.dailyword.post.facade;
+package com.dailyword.post.adapter.in.facade;
 
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.post.application.usecase.command.DeleteCommentCommand;
 import com.dailyword.post.application.usecase.comment.CreateCommentUsecase;
 import com.dailyword.post.application.usecase.comment.DeleteCommentUsecase;
 import com.dailyword.post.application.usecase.comment.GetPostCommentsUsecase;
-import com.dailyword.post.facade.dto.CreateCommentRequest;
-import com.dailyword.post.facade.dto.CreateCommentResponse;
-import com.dailyword.post.facade.dto.PostCommentsResponse;
+import com.dailyword.post.adapter.in.facade.dto.CreateCommentRequest;
+import com.dailyword.post.adapter.in.facade.dto.CreateCommentResponse;
+import com.dailyword.post.adapter.in.facade.dto.PostCommentsResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

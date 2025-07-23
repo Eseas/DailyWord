@@ -1,6 +1,7 @@
-package com.dailyword.post.facade;
+package com.dailyword.post.adapter.in.facade;
 
 import com.dailyword.common.response.APIResponse;
+import com.dailyword.post.adapter.in.facade.dto.*;
 import com.dailyword.post.application.usecase.post.*;
 import com.dailyword.post.facade.dto.*;
 import lombok.RequiredArgsConstructor;

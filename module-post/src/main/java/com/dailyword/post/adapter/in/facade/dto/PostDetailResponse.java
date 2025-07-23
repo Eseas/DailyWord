@@ -1,10 +1,7 @@
-package com.dailyword.post.facade.dto;
+package com.dailyword.post.adapter.in.facade.dto;
 
-import com.dailyword.post.domain.model.Post;
-import com.dailyword.post.domain.model.PostStatus;
 import com.dailyword.post.repository.projection.PostView;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 

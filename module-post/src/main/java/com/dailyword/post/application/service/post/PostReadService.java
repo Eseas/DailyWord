@@ -1,9 +1,7 @@
 package com.dailyword.post.application.service.post;
 
 import com.dailyword.post.application.usecase.post.PostReadUsecase;
-import com.dailyword.post.domain.model.Post;
-import com.dailyword.post.domain.model.PostStatus;
-import com.dailyword.post.facade.dto.PostDetailResponse;
+import com.dailyword.post.adapter.in.facade.dto.PostDetailResponse;
 import com.dailyword.post.repository.PostRepository;
 import com.dailyword.post.repository.projection.PostView;
 import lombok.RequiredArgsConstructor;

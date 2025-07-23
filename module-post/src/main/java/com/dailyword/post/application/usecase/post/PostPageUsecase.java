@@ -1,6 +1,6 @@
 package com.dailyword.post.application.usecase.post;
 
-import com.dailyword.post.facade.dto.PostPageResponse;
+import com.dailyword.post.adapter.in.facade.dto.PostPageResponse;
 
 import java.util.List;
 

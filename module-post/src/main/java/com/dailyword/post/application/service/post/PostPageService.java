@@ -2,7 +2,7 @@ package com.dailyword.post.application.service.post;
 
 import com.dailyword.post.application.usecase.post.PostPageUsecase;
 import com.dailyword.post.domain.model.Post;
-import com.dailyword.post.facade.dto.PostPageResponse;
+import com.dailyword.post.adapter.in.facade.dto.PostPageResponse;
 import com.dailyword.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

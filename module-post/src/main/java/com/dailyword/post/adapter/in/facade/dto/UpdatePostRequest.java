@@ -1,4 +1,4 @@
-package com.dailyword.post.facade.dto;
+package com.dailyword.post.adapter.in.facade.dto;
 
 import com.dailyword.post.application.usecase.command.UpdatePostCommand;
 import lombok.Getter;

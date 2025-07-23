@@ -4,7 +4,7 @@ import com.dailyword.common.exception.BusinessException;
 import com.dailyword.common.response.ErrorCode;
 import com.dailyword.post.application.usecase.comment.GetPostCommentsUsecase;
 import com.dailyword.post.domain.model.PostStatus;
-import com.dailyword.post.facade.dto.PostCommentsResponse;
+import com.dailyword.post.adapter.in.facade.dto.PostCommentsResponse;
 import com.dailyword.post.repository.CommentRepository;
 import com.dailyword.post.repository.PostRepository;
 import com.dailyword.post.repository.projection.CommentView;
