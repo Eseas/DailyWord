@@ -18,7 +18,7 @@ public class FollowController {
 
     private final GetFollowCountUsecase getFollowCountUsecase;
 
-    @GetMapping("/users{memberRefCode}/following/count")
+    @GetMapping("/users/{memberRefCode}/following/count")
     public ResponseEntity<APIResponse<GetFollowCount>> getFollowCount(
             @PathVariable String memberRefCode
     ) {
