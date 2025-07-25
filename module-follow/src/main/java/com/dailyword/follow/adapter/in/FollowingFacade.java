@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/internal/following")
+@RequestMapping("/internal")
 public class FollowingFacade {
 
     private final GetFollowCountUsecase getFollowCountUsecase;
 
-    @GetMapping("/{memberId}/count")
+    @GetMapping("/users{memberRefCode}/following/count")
     public ResponseEntity<APIResponse<GetFollowingCount>> getFollowingCount(
             @PathVariable Long memberId
     ) {
