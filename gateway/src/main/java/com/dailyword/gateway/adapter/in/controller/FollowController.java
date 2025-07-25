@@ -1,15 +1,13 @@
 package com.dailyword.gateway.adapter.in.controller;
 
 import com.dailyword.common.response.APIResponse;
+import com.dailyword.gateway.application.usecase.follow.FollowUsecase;
 import com.dailyword.gateway.application.usecase.follow.GetFollowCountUsecase;
 import com.dailyword.gateway.dto.follow.GetFollowCount;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class FollowController {
 
     private final GetFollowCountUsecase getFollowCountUsecase;
+    private final FollowUsecase followUsecase;
 
     @GetMapping("/users/{memberRefCode}/following/count")
     public ResponseEntity<APIResponse<GetFollowCount>> getFollowCount(
@@ -24,5 +23,16 @@ public class FollowController {
     ) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(APIResponse.success(getFollowCountUsecase.getFollowCount(memberRefCode)));
+    }
+
+    @PostMapping("/users/{memberRefCode}/following/{followeeRefCode}")
+    public ResponseEntity<APIResponse> follow(
+            @PathVariable String memberRefCode,
+            @PathVariable String followeeRefCode
+    ) {
+        followUsecase.follow(memberRefCode, followeeRefCode);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success());
     }
 }
