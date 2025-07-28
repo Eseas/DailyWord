@@ -16,6 +16,7 @@ public class FollowController {
 
     private final GetFollowCountUsecase getFollowCountUsecase;
     private final FollowUsecase followUsecase;
+    private final UnFollowUsecase unFollowUsecase;
 
     @GetMapping("/users/{memberRefCode}/following/count")
     public ResponseEntity<APIResponse<GetFollowCount>> getFollowCount(
@@ -31,6 +32,17 @@ public class FollowController {
             @PathVariable String followeeRefCode
     ) {
         followUsecase.follow(memberRefCode, followeeRefCode);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success());
+    }
+
+    @DeleteMapping("/users/{memberRefCode}/following/{followeeRefCode}")
+    public ResponseEntity<APIResponse> unfollow(
+            @PathVariable String memberRefCode,
+            @PathVariable String followeeRefCode
+    ) {
+        unFollowUsecase.unfollow(memberRefCode, followeeRefCode);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(APIResponse.success());
