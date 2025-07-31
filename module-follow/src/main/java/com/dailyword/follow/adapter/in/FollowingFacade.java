@@ -4,6 +4,7 @@ import com.dailyword.common.response.APIResponse;
 import com.dailyword.follow.adapter.in.dto.GetFollowingCount;
 import com.dailyword.follow.application.usecase.FollowUsecase;
 import com.dailyword.follow.application.usecase.GetFollowCountUsecase;
+import com.dailyword.follow.application.usecase.UnFollowUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class FollowingFacade {
             @PathVariable Long memberId,
             @PathVariable Long followeeId
     ) {
-        unFollowUsecase.unfollow(memberId, foloweeId);
+        unFollowUsecase.unfollow(memberId, followeeId);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(APIResponse.success());
