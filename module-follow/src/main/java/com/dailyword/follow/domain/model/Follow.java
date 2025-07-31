@@ -21,7 +21,7 @@ public class Follow extends BaseTimeEntity {
 
     private FollowStatus followStatus;
 
-    private Follow(Long followerId, Long follweeId) {
+    private Follow(Long followerId, Long followeeId) {
         this.followerId = followerId;
         this.followeeId = followeeId;
         followStatus = FollowStatus.FOLLOWING;
@@ -29,5 +29,9 @@ public class Follow extends BaseTimeEntity {
 
     public static Follow follow(Long followerId, Long followeeId) {
         return new Follow(followerId, followeeId);
+    }
+
+    public void unfollow() {
+        followStatus = FollowStatus.UNFOLLOWING;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface FollowRepository extends JpaRepository<Follow, Long> {
 
@@ -19,4 +21,12 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     SELECT count(f.followerId) FROM Follow f WHERE f.followeeId = :memberId and f.followStatus = :followStatus
     """)
     Long getFolloweeCount(@Param("memberId") Long memberId, FollowStatus followStatus);
+
+    @Query("""
+    SELECT f FROM Follow f WHERE f.followerId = :followerId AND f.followeeId = :followeeId AND f.followStatus = :followStatus
+    """)
+    Optional<Follow> findFollow(@Param("followerId") Long followerId,
+                                @Param("followeeId") Long followeeId,
+                                @Param("followStatus") FollowStatus followStatus
+    );
 }
