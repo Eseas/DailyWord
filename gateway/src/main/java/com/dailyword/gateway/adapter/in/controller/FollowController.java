@@ -3,6 +3,7 @@ package com.dailyword.gateway.adapter.in.controller;
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.application.usecase.follow.FollowUsecase;
 import com.dailyword.gateway.application.usecase.follow.GetFollowCountUsecase;
+import com.dailyword.gateway.application.usecase.follow.UnFollowUsecase;
 import com.dailyword.gateway.dto.follow.GetFollowCount;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,7 @@ public class FollowController {
             @PathVariable String memberRefCode,
             @PathVariable String followeeRefCode
     ) {
-        unFollowUsecase.unfollow(memberRefCode, followeeRefCode);
+        unFollowUsecase.unFollow(memberRefCode, followeeRefCode);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(APIResponse.success());
