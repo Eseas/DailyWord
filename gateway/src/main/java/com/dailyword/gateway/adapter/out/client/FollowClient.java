@@ -3,6 +3,7 @@ package com.dailyword.gateway.adapter.out.client;
 import com.dailyword.common.domain.PageResponse;
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.dto.follow.GetFollowCount;
+import com.dailyword.gateway.dto.follow.GetFollowerList;
 import com.dailyword.gateway.dto.follow.GetFollowingList;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +19,12 @@ public interface FollowClient {
 
     @GetMapping("/users/{memberId}/following/list/{page}")
     APIResponse<PageResponse<GetFollowingList>> getFollowingList(
+            @PathVariable("memberId") Long memberId,
+            @PathVariable("page") Integer page
+    );
+
+    @GetMapping("/users/{memberId}/follower/list/{page}")
+    APIResponse<PageResponse<GetFollowerList>> getFollowerList(
             @PathVariable("memberId") Long memberId,
             @PathVariable("page") Integer page
     );
