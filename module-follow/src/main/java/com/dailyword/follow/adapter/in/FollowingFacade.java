@@ -29,7 +29,7 @@ public class FollowingFacade {
                 .body(APIResponse.success(getFollowCountUsecase.getFollowingCount(memberId)));
     }
 
-    @GetMapping("/users/{memberRefCode}/following/list/{page}")
+    @GetMapping("/users/{memberId}/following/list/{page}")
     public ResponseEntity<APIResponse<PageResponse<GetFollowList>>> getFollowingList(
             @PathVariable Long memberId,
             @PathVariable Integer page
