@@ -2,8 +2,8 @@ package com.dailyword.follow.application.service;
 
 import com.dailyword.common.domain.PageResponse;
 import com.dailyword.follow.adapter.in.dto.GetFollowList;
-import com.dailyword.follow.application.usecase.GetFollowListUsecase;
-import com.dailyword.follow.domain.constant.FollowStatus;
+import com.dailyword.follow.application.usecase.GetFollowerListUsecase;
+import com.dailyword.follow.application.usecase.GetFollowingListUsecase;
 import com.dailyword.follow.domain.model.Follow;
 import com.dailyword.follow.infrastructure.repository.FollowRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +15,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.dailyword.follow.domain.constant.FollowStatus.*;
+import static com.dailyword.follow.domain.constant.FollowStatus.FOLLOWING;
 
 @Service
 @RequiredArgsConstructor
-public class GetFollowListService implements GetFollowListUsecase {
+public class GetFollowerListService implements GetFollowerListUsecase {
 
     private final FollowRepository followRepository;
     private static final Integer pageSize = 20;
@@ -28,7 +28,7 @@ public class GetFollowListService implements GetFollowListUsecase {
     public PageResponse<GetFollowList> getFollowList(Long memberId, Integer page) {
         Pageable pageable = PageRequest.of(page, pageSize);
 
-        Page<Follow> followPage = followRepository.findFollowPageByfolloweeId(memberId, FOLLOWING, pageable);
+        Page<Follow> followPage = followRepository.findFollowPageByfollowerId(memberId, FOLLOWING, pageable);
         List<GetFollowList> followeeIdList = followPage.getContent().stream().map(GetFollowList::create).collect(Collectors.toList());
 
         return PageResponse.of(followeeIdList, followPage);
