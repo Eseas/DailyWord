@@ -2,11 +2,14 @@ package com.dailyword.follow.infrastructure.repository;
 
 import com.dailyword.follow.domain.constant.FollowStatus;
 import com.dailyword.follow.domain.model.Follow;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -29,4 +32,14 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
                                 @Param("followeeId") Long followeeId,
                                 @Param("followStatus") FollowStatus followStatus
     );
+
+    @Query("""
+        SELECT f FROM Follow f WHERE f.followeeId = :followeeId AND f.followStatus = :followStatus 
+    """)
+    Page<Follow> findFollowPageByfolloweeId(Long followeeId, FollowStatus followStatus, Pageable pageable);
+
+    @Query("""
+        SELECT f FROM Follow f WHERE f.followeeId = :followerId AND f.followStatus = :followStatus 
+    """)
+    Page<Follow> findFollowPageByfollowerId(Long followerId, FollowStatus followStatus, Pageable pageable);
 }

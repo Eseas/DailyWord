@@ -1,9 +1,12 @@
 package com.dailyword.follow.adapter.in;
 
+import com.dailyword.common.domain.PageResponse;
 import com.dailyword.common.response.APIResponse;
+import com.dailyword.follow.adapter.in.dto.GetFollowList;
 import com.dailyword.follow.adapter.in.dto.GetFollowingCount;
 import com.dailyword.follow.application.usecase.FollowUsecase;
 import com.dailyword.follow.application.usecase.GetFollowCountUsecase;
+import com.dailyword.follow.application.usecase.GetFollowListUsecase;
 import com.dailyword.follow.application.usecase.UnFollowUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class FollowingFacade {
 
     private final GetFollowCountUsecase getFollowCountUsecase;
+    private final GetFollowListUsecase getFollowListUsecase;
     private final FollowUsecase followUsecase;
     private final UnFollowUsecase unFollowUsecase;
 
@@ -25,6 +29,15 @@ public class FollowingFacade {
     ) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(APIResponse.success(getFollowCountUsecase.getFollowingCount(memberId)));
+    }
+
+    @GetMapping("/users/{memberRefCode}/following/list/{page}")
+    public ResponseEntity<APIResponse<PageResponse<GetFollowList>>> getFollowList(
+            @PathVariable Long memberId,
+            @PathVariable Integer page
+    ) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success(getFollowListUsecase.getFollowList(memberId, page)));
     }
 
     @PostMapping("/users/{memberId}/following/{followeeId}")
