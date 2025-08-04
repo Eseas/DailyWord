@@ -6,6 +6,7 @@ import com.dailyword.follow.domain.constant.FollowStatus;
 import com.dailyword.follow.infrastructure.repository.FollowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.dailyword.follow.domain.constant.FollowStatus.FOLLOWING;
 
@@ -16,6 +17,7 @@ public class GetFollowCountService implements GetFollowCountUsecase {
     private final FollowRepository followRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public GetFollowingCount getFollowingCount(Long memberId) {
         Long followerCount = followRepository.getFollowerCount(memberId, FOLLOWING);
         Long followeeCount = followRepository.getFolloweeCount(memberId, FOLLOWING);
