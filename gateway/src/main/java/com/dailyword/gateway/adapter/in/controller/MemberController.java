@@ -2,6 +2,8 @@ package com.dailyword.gateway.adapter.in.controller;
 
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.adapter.out.client.MemberClient;
+import com.dailyword.gateway.application.usecase.member.EditMemberInfoUsecase;
+import com.dailyword.gateway.application.usecase.member.GetMemberInfoUsecase;
 import com.dailyword.gateway.dto.auth.TokenResponse;
 import com.dailyword.gateway.dto.member.GetMemberInfo;
 import com.dailyword.gateway.dto.member.PatchMemberInfo;
@@ -20,21 +22,22 @@ import java.time.Duration;
 @RequestMapping("/api/v1/gateway")
 public class MemberController {
 
-    private final MemberClient memberClient;
+    private final GetMemberInfoUsecase getMemberInfoUsecase;
     private final SocialLoginService socialLoginUsecase;
+    private final EditMemberInfoUsecase editMemberInfoUsecase;
 
     /**
      * 회원 정보 조회
-     * @param memberId
+     * @param memberRefCode
      * @return
      */
-    @GetMapping("/member/{memberId}")
+    @GetMapping("/member/{memberRefCode}")
     public ResponseEntity<APIResponse<GetMemberInfo>> getMember(
-            @PathVariable Long memberId
+            @PathVariable String memberRefCode
     ) {
-        var memberInfo = memberClient.getMemberInfo(memberId);
+        var memberInfo = getMemberInfoUsecase.getMemberInfo(memberRefCode);
 
-        return ResponseEntity.status(HttpStatus.OK).body(memberInfo);
+        return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(memberInfo));
     }
 
     /**
@@ -59,21 +62,23 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK)
                 .header("Authorization", token.getAccessToken())
                 .header(HttpHeaders.SET_COOKIE, refreshCookie.toString())
-                .build();
+                .body(APIResponse.success());
     }
 
     /**
      * 회원 정보 수정
-     * @param memberId
+     * @param memberRefCode
      * @param requestDto
      * @return
      */
-    @PatchMapping("/members/{memberId}/info")
+    @PatchMapping("/members/{memberRefCode}/info")
     public ResponseEntity<APIResponse<Long>> patchMemberInfo(
-            @PathVariable Long memberId,
+            @PathVariable String memberRefCode,
             @RequestBody PatchMemberInfo.Request requestDto
     ) {
-        memberClient.patchMemberInfo(memberId, requestDto);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        editMemberInfoUsecase.editInfo(memberRefCode, requestDto);
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success());
     }
 }

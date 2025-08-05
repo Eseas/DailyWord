@@ -16,8 +16,8 @@ public interface MemberClient {
     APIResponse<Long> idByRefCode(@PathVariable("refCode") String refCode);
 
     //TODO - change GetMemberInfo multi use
-    @GetMapping("/internal/member/{id}")
-    APIResponse<GetMemberInfo> getMemberInfo(@PathVariable("id") Long memberId);
+    @GetMapping("/internal/member/{memberRefCode}")
+    APIResponse<GetMemberInfo> getMemberInfo(@PathVariable("memberRefCode") String memberRefCode);
 
     @PostMapping("/internal/members/login")
     APIResponse<GetMemberInfo> login(@RequestBody KakaoUserInfoResponse kakaoUserInfo);
@@ -25,7 +25,7 @@ public interface MemberClient {
     @PostMapping("/internal/members")
     APIResponse<GetMemberInfo> register(@RequestBody KakaoUserInfoResponse kakaoUserInfo);
 
-    @PatchMapping("/internal/members/{memberId}/info")
-    void patchMemberInfo(@PathVariable("memberId") Long memberId,
+    @PatchMapping("/internal/members/{memberRefCode}/info")
+    void patchMemberInfo(@PathVariable("memberRefCode") String memberRefCode,
                          @RequestBody PatchMemberInfo.Request requestDto);
 }
