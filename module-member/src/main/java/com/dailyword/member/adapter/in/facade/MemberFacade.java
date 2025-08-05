@@ -42,4 +42,13 @@ public class MemberFacade {
 
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(response));
     }
+
+    @PatchMapping("/internal/members/{memberRefCode}/info")
+    public ResponseEntity<APIResponse> updateMemberInfo(
+            @PathVariable String memberRefCode,
+            @RequestBody PatchMemberInfo patchMemberInfo
+    ) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success());
+    }
 }

@@ -26,6 +26,6 @@ public interface MemberClient {
     APIResponse<GetMemberInfo> register(@RequestBody KakaoUserInfoResponse kakaoUserInfo);
 
     @PatchMapping("/internal/members/{memberRefCode}/info")
-    void patchMemberInfo(@PathVariable("memberRefCode") String memberRefCode,
+    APIResponse patchMemberInfo(@PathVariable("memberRefCode") String memberRefCode,
                          @RequestBody PatchMemberInfo.Request requestDto);
 }

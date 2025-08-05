@@ -30,4 +30,11 @@ public class Member extends BaseUuidEntity {
     @Enumerated(EnumType.STRING)
     private SocialLoginType socialLoginType;
 
+    private void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void changeInfo(String nickname) {
+        setNickname(nickname);
+    }
 }
