@@ -58,10 +58,10 @@
 
 #### 구현 기능
 
--[X] Base Entity
--[X] Create Uuid Process
--[X] Basic Response Entity
--[X] Logging System
+- [X] Base Entity
+- [X] Create Uuid Process
+- [X] Basic Response Entity
+- [X] Logging System
 
 ---
 ### Module-Auth
@@ -70,9 +70,9 @@
 
 #### 구현 기능
 
--[X] 토큰 발급
--[X] 토큰 검증
--[X] 토큰 재발급
+- [X] 토큰 발급
+- [X] 토큰 검증
+- [X] 토큰 재발급
 
 ---
 ### Module-Follow
@@ -81,12 +81,12 @@
 
 #### 구현 기능
 
--[X] 회원 팔로우 API
--[X] 회원 언팔로우 API
--[X] 팔로워, 팔로잉 수 반환 API
--[X] 팔로워 리스트 반환 API
--[X] 팔로윙 리스트 반환 API
--[ ] 팔로우 Entity 내부 닉네임 및 사진 저장 처리
+- [X] 회원 팔로우 API
+- [X] 회원 언팔로우 API
+- [X] 팔로워, 팔로잉 수 반환 API
+- [X] 팔로워 리스트 반환 API
+- [X] 팔로윙 리스트 반환 API
+- [ ] 팔로우 Entity 내부 닉네임 및 사진 저장 처리
 
 ---
 ### Module-Member
@@ -94,10 +94,10 @@
 - 회원 정보에 관한 전반적인 기능을 담당하는 모듈입니다.
 
 #### 구현 기능
--[X] RefCode -> Id (PK) 값 반환 API
--[X] 로그인 처리 API
--[ ] 회원 정보 수정 API
--[ ] 회원 정보 반환 API
+- [X] RefCode -> Id (PK) 값 반환 API
+- [X] 로그인 처리 API
+- [ ] 회원 정보 수정 API
+- [ ] 회원 정보 반환 API
 
 ---
 ### Module-Post
@@ -107,19 +107,19 @@
 #### 구현 기능
 
 - Post 
--[X] 게시글 생성 API
--[X] 게시글 수정 API
--[X] 게시글 삭제 API
--[X] 게시글 상세 조회 API
--[X] 게시글 목록 조회 API
--[ ] 특정 회원 게시글 목록 조회 API
--[ ] 게시글 신고 API
+- [X] 게시글 생성 API
+- [X] 게시글 수정 API
+- [X] 게시글 삭제 API
+- [X] 게시글 상세 조회 API
+- [X] 게시글 목록 조회 API
+- [ ] 특정 회원 게시글 목록 조회 API
+- [ ] 게시글 신고 API
 
 - Comment
--[X] 댓글 추가 API
--[ ] 댓글 수정 API
--[X] 댓글 삭제 API
--[X] 댓글 목록 조회 API
+- [X] 댓글 추가 API
+- [ ] 댓글 수정 API
+- [X] 댓글 삭제 API
+- [X] 댓글 목록 조회 API
 
 ---
 ### Module-Qt
@@ -128,8 +128,8 @@
 
 #### 구현 기능
 
--[ ] 큐티 말씀 묶음 정리 API
--[ ] 큐티 말씀 추천 API
+- [ ] 큐티 말씀 묶음 정리 API
+- [ ] 큐티 말씀 추천 API
 
 ---
 ### Module-kakao
@@ -138,7 +138,7 @@
 
 #### 구현 기능
 
--[X] 카카오 소셜 로그인 처리 API
+- [X] 카카오 소셜 로그인 처리 API
 
 ---
 ### Module-version
@@ -147,7 +147,7 @@
 
 #### 구현 기능
 
--[ ] 업데이트 필요 유무 확인 API
+- [ ] 업데이트 필요 유무 확인 API
 
 ---
 ### Module-File
@@ -156,8 +156,8 @@
 
 #### 구현 기능
 
--[ ] 파일 업로드
--[ ] 파일 삭제
+- [ ] 파일 업로드
+- [ ] 파일 삭제
 
 ---
 ### Module-Admin
