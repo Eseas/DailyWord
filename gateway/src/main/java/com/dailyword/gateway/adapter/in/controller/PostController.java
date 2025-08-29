@@ -21,7 +21,7 @@ public class PostController {
     private final PostUpdateUsecase postUpdateUsecase;
     private final PostDeleteUsecase postDeleteUsecase;
 
-    @GetMapping
+    @GetMapping("/posts")
     public ResponseEntity<APIResponse<List<PostPageResponse>>> getPosts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -31,20 +31,20 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(postList));
     }
 
-    @GetMapping("/{postRefCode}")
+    @GetMapping("/posts/{postRefCode}")
     public ResponseEntity<APIResponse<PostDetailResponse>> getPost(@PathVariable String postRefCode) {
         PostDetailResponse response = postReadUsecase.getPost(postRefCode);
         return ResponseEntity.ok(APIResponse.success(response));
     }
 
-    @PostMapping
+    @PostMapping("/posts")
     public ResponseEntity<APIResponse<String>> createPost(@RequestBody CreatePostRequest request) {
         String postRefCode = postCreateUsecase.createPost(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(APIResponse.success(postRefCode));
     }
 
-    @PutMapping("/{refCode}")
+    @PutMapping("/posts/{refCode}")
     public ResponseEntity<APIResponse<String>> updatePost(
             @PathVariable String refCode,
             @RequestBody PostUpdateRequest request
@@ -53,7 +53,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(result));
     }
 
-    @DeleteMapping("/{refCode}")
+    @DeleteMapping("/posts/{refCode}")
     public ResponseEntity<APIResponse<String>> deletePost(
             @PathVariable String refCode,
             @RequestBody PostDeleteRequest request
