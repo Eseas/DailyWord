@@ -1,5 +1,6 @@
 package com.dailyword.gateway.adapter.out.client;
 
+import com.dailyword.common.domain.PageResponse;
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.application.service.post.command.PostCreateCommand;
 import com.dailyword.gateway.dto.mypage.QtProgressResponse;
@@ -22,7 +23,7 @@ public interface PostClient {
     );
 
     @GetMapping("/internal/users/{memberId}/posts")
-    APIResponse<List<MyPostPageResponse>> getUserPosts(
+    APIResponse<PageResponse<MyPostPageResponse>> getUserPosts(
             @PathVariable Long memberId,
             @RequestParam int page,
             @RequestParam int size

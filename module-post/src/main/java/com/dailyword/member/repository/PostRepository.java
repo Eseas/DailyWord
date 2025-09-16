@@ -4,6 +4,8 @@ import com.dailyword.member.domain.model.Post;
 import com.dailyword.member.domain.model.PostStatus;
 import com.dailyword.member.repository.projection.PostListView;
 import com.dailyword.member.repository.projection.PostView;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -33,7 +35,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
       AND p.status = :status
     ORDER BY p.createdAt DESC
     """)
-    List<PostListView> findByMemberIdAndStatus(Long memberId, PostStatus status);
+    Page<PostListView> findByMemberIdAndStatus(Pageable pageable, Long memberId, PostStatus status);
 
     @Query("""
         SELECT

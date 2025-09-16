@@ -21,8 +21,8 @@ public class getUserPostList implements GetUserPostUsecase {
     public PageResponse<MyPostPageResponse> getMyPostList(String memberRefCode, int page, int pageSize) {
         Long memberId = memberClient.idByRefCode(memberRefCode).getData();
 
-        List<MyPostPageResponse> usersPost = postClient.getUserPosts(memberId, page, pageSize).getData();
+        PageResponse<MyPostPageResponse> usersPost = postClient.getUserPosts(memberId, page, pageSize).getData();
 
-        return PageResponse;
+        return usersPost;
     }
 }

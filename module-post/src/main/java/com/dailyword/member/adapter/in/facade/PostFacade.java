@@ -1,5 +1,6 @@
 package com.dailyword.member.adapter.in.facade;
 
+import com.dailyword.common.domain.PageResponse;
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.member.adapter.in.facade.dto.*;
 import com.dailyword.member.application.usecase.post.*;
@@ -31,7 +32,7 @@ public class PostFacade {
     }
 
     @GetMapping("/users/{memberId}/posts")
-    public ResponseEntity<APIResponse<List<MyPostPageResponse>>> getUserPosts(
+    public ResponseEntity<APIResponse<PageResponse<MyPostPageResponse>>> getUserPosts(
         @PathVariable Long memberId,
         @RequestParam int page,
         @RequestParam int size

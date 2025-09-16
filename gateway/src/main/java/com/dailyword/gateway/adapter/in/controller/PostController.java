@@ -1,5 +1,6 @@
 package com.dailyword.gateway.adapter.in.controller;
 
+import com.dailyword.common.domain.PageResponse;
 import com.dailyword.common.response.APIResponse;
 import com.dailyword.gateway.application.usecase.post.*;
 import com.dailyword.gateway.dto.post.*;
@@ -16,7 +17,7 @@ import java.util.List;
 public class PostController {
 
     private final PostCreateUsecase postCreateUsecase;
-//    private final GetMyPostUsecase getMyPostUsecase;
+    private final GetUserPostUsecase getUserPostUsecase;
     private final PostPageUsecase postPageUsecase;
     private final PostReadUsecase postReadUsecase;
     private final PostUpdateUsecase postUpdateUsecase;
@@ -33,12 +34,13 @@ public class PostController {
     }
 
     @GetMapping("/users/{userRefCode}/posts")
-    public ResponseEntity<APIResponse<List<MyPostPageResponse>>> getUserPosts(
+    public ResponseEntity<APIResponse<PageResponse<MyPostPageResponse>>> getUserPosts(
             @PathVariable String userRefCode,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
-        return null;
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(APIResponse.success(getUserPostUsecase.getMyPostList(userRefCode, page, size)));
     }
 
     @GetMapping("/posts/{postRefCode}")
