@@ -25,16 +25,19 @@ public class Post extends BaseUuidEntity {
 
     private Long viewCount = 0L;
 
+    private Boolean isHide = false;
+
     @Enumerated(EnumType.STRING)
     private PostStatus status = PostStatus.ACTIVE;
 
-    private Post(Long memberId, String content) {
+    private Post(Long memberId, String content, boolean isHide) {
         this.authorId = memberId;
         this.content = content;
+        this.isHide = isHide;
     }
 
-    public static Post create(Long memberId, String content) {
-        return new Post(memberId, content);
+    public static Post create(Long memberId, String content, boolean isHide) {
+        return new Post(memberId, content, isHide);
     }
 
     public void updateContent(String content) {
