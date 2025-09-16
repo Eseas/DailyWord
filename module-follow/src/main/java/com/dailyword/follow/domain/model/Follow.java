@@ -34,4 +34,8 @@ public class Follow extends BaseTimeEntity {
     public void unfollow() {
         followStatus = FollowStatus.UNFOLLOWING;
     }
+
+    public void follow() {
+        followStatus = FollowStatus.FOLLOWING;
+    }
 }
