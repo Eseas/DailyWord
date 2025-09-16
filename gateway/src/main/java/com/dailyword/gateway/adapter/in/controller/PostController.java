@@ -16,6 +16,7 @@ import java.util.List;
 public class PostController {
 
     private final PostCreateUsecase postCreateUsecase;
+//    private final GetMyPostUsecase getMyPostUsecase;
     private final PostPageUsecase postPageUsecase;
     private final PostReadUsecase postReadUsecase;
     private final PostUpdateUsecase postUpdateUsecase;
@@ -29,6 +30,15 @@ public class PostController {
         List<PostPageResponse> postList = postPageUsecase.getPosts(page, size);
 
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(postList));
+    }
+
+    @GetMapping("/users/{userRefCode}/posts")
+    public ResponseEntity<APIResponse<List<MyPostPageResponse>>> getUserPosts(
+            @PathVariable String userRefCode,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return null;
     }
 
     @GetMapping("/posts/{postRefCode}")

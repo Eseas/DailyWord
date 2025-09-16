@@ -20,7 +20,7 @@ public class FollowController {
 
     private final GetFollowCountUsecase getFollowCountUsecase;
     private final GetFollowingListUsecase getFollowingListUsecase;
-    private final GetFollowerListUsecase getFollowerListUsecase;
+//    private final GetFollowerListUsecase getFollowerListUsecase;
     private final FollowUsecase followUsecase;
     private final UnFollowUsecase unFollowUsecase;
 
@@ -46,8 +46,9 @@ public class FollowController {
             @PathVariable String memberRefCode,
             @PathVariable Integer page
     ) {
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(APIResponse.success(getFollowerListUsecase.getFollowerList(memberRefCode, page)));
+        return null;
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(APIResponse.success(getFollowerListUsecase.getFollowerList(memberRefCode, page)));
     }
 
     @PostMapping("/users/{memberRefCode}/following/{followeeRefCode}")

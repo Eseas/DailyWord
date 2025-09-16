@@ -21,6 +21,13 @@ public interface PostClient {
             @RequestParam int size
     );
 
+    @GetMapping("/internal/users/{memberId}/posts")
+    APIResponse<List<MyPostPageResponse>> getUserPosts(
+            @PathVariable Long memberId,
+            @RequestParam int page,
+            @RequestParam int size
+    );
+
     @GetMapping("/internal/post/{postRefCode}")
     APIResponse<PostDetailResponse> getPost(@PathVariable String postRefCode);
 
