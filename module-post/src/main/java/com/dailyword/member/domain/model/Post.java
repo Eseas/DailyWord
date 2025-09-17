@@ -44,6 +44,10 @@ public class Post extends BaseUuidEntity {
         this.content = content;
     }
 
+    public void updateIsHide(Boolean isHide) {
+        this.isHide = isHide;
+    }
+
     public void delete() {
         this.status = PostStatus.DELETED;
     }

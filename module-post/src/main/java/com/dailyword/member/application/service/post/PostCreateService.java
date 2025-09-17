@@ -18,7 +18,7 @@ public class PostCreateService implements PostCreateUsecase {
     @Transactional
     public String createPost(CreatePostCommand command) {
 
-        Post post = Post.create(command.getAuthorId(), command.getContent());
+        Post post = Post.create(command.getAuthorId(), command.getContent(), command.getIsHide());
 
         return postRepository.save(post).getRefCode();
     }

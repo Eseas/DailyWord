@@ -11,9 +11,10 @@ import java.util.List;
 public class CreatePostRequest {
     private Long authorId;
     private String content;
+    private Boolean isHide;
     private List<String> hashtags;
 
     public CreatePostCommand toCommand() {
-        return new CreatePostCommand(authorId, content, hashtags);
+        return new CreatePostCommand(authorId, content, isHide, hashtags);
     }
 }

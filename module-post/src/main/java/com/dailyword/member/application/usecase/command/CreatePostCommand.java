@@ -10,5 +10,6 @@ import java.util.List;
 public class CreatePostCommand {
     private final Long authorId;
     private final String content;
+    private final Boolean isHide;
     private final List<String> hashtags;
 }

@@ -29,6 +29,7 @@ public class PostUpdateService implements PostUpdateUsecase {
         }
 
         post.updateContent(command.getContent());
+        post.updateIsHide(command.getIsHide());
         return post.getRefCode();
     }
 }

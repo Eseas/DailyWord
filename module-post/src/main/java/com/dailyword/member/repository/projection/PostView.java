@@ -13,5 +13,6 @@ public interface PostView {
     Integer getLikeCount();
     Long getCommentCount();
     Long getViewCount();
+    Boolean getIsHide();
     PostStatus getStatus();
 }

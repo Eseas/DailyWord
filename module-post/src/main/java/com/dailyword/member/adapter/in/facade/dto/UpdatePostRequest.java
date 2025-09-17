@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 public class UpdatePostRequest {
     private Long memberId;
     private String content;
+    private Boolean isHide;
 
     public UpdatePostCommand toCommand(String refCode) {
-        return new UpdatePostCommand(refCode, memberId, content);
+        return new UpdatePostCommand(refCode, memberId, content, isHide);
     }
 }
