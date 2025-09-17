@@ -22,6 +22,7 @@ public class PostFacade {
     private final PostReadUsecase postReadUsecase;
     private final PostUpdateUsecase postUpdateUsecase;
     private final PostDeleteUsecase postDeleteUsecase;
+    private final PostHideUsecase postHideUsecase;
 
     @GetMapping("/posts")
     public ResponseEntity<APIResponse<List<PostPageResponse>>> getPosts(
@@ -67,6 +68,12 @@ public class PostFacade {
             @RequestBody DeletePostRequest request
     ) {
         String result = postDeleteUsecase.delete(request.toCommand(refCode));
+        return ResponseEntity.ok(APIResponse.success(result));
+    }
+
+    @PatchMapping("/posts/{postRefCode}/hide")
+    public ResponseEntity<APIResponse<String>> hidePost(@PathVariable String postRefCode) {
+        String result = postHideUsecase.hidePost(postRefCode);
         return ResponseEntity.ok(APIResponse.success(result));
     }
 }

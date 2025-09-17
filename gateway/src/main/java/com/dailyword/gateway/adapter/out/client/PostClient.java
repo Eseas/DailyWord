@@ -38,6 +38,9 @@ public interface PostClient {
     @DeleteMapping("/internal/post/{refCode}")
     APIResponse<String> deletePost(@PathVariable String refCode, @RequestBody PostDeleteRequest request);
 
+    @PatchMapping("/internal/posts/{postRefCode}/hide")
+    APIResponse<String> hidePost(@PathVariable String postRefCode);
+
     @GetMapping("/internal/posts/qt-progress/{memberId}")
     APIResponse<QtProgressResponse> getQtProgressDates(@PathVariable Long memberId);
 }
