@@ -1,12 +1,13 @@
-package com.dailyword.version;
+package com.dailyword.post;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ModuleVersionApplication {
+public class ModulePostApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ModuleVersionApplication.class, args);
+        SpringApplication.run(ModulePostApplication.class, args);
     }
+
 }

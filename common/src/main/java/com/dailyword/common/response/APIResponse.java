@@ -41,6 +41,14 @@ public class APIResponse<T> {
         return new APIResponse<T>(true,200, "success", null);
     }
 
+    public static <T> APIResponse<T> success(SuccessCode successCode, T data) {
+        return new APIResponse<T>(true, successCode.getCode(), successCode.getMessage(), data);
+    }
+
+    public static <T> APIResponse<T> success(SuccessCode successCode) {
+        return new APIResponse<T>(true, successCode.getCode(), successCode.getMessage(), null);
+    }
+
     public static <T> APIResponse<T> error(int code, String message) {
         return new APIResponse<T>(true, code, message, null);
     }

@@ -10,7 +10,11 @@ public enum ErrorCode {
     //------------------------------ module comment ----------------------------------------
     NOT_FOUND_COMMENT(4000, "해당 댓글을 찾을 수 없습니다."),
     //------------------------------ module follow -----------------------------------------
-    NOT_FOLLOWING(5000, "해당 회원들은 팔로우하고 있지 않습니다.");
+    NOT_FOLLOWING(5000, "해당 회원들은 팔로우하고 있지 않습니다."),
+    //------------------------------ module version ----------------------------------------
+    UNSUPPORTED_PLATFORM(6000, "지원하지 않는 플랫폼입니다."),
+    INVALID_VERSION_FORMAT(6001, "잘못된 버전 형식입니다."),
+    UPDATE_REQUIRED(6002, "앱을 최신 버전으로 업데이트해주세요.");
 
     private final int code;
     private final String message;
