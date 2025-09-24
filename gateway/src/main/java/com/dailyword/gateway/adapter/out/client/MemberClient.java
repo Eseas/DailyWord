@@ -17,7 +17,7 @@ public interface MemberClient {
 
     //TODO - change GetMemberInfo multi use
     @GetMapping("/internal/member/{memberRefCode}")
-    APIResponse<GetMemberInfo> getMemberInfo(@PathVariable("memberRefCode") Long memberRefCode);
+    APIResponse<GetMemberInfo> getMemberInfo(@PathVariable("memberRefCode") String memberRefCode);
 
     @PostMapping("/internal/members/login")
     APIResponse<GetMemberInfo> login(@RequestBody KakaoUserInfoResponse kakaoUserInfo);
