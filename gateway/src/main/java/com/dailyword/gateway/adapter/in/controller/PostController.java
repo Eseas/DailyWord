@@ -81,7 +81,9 @@ public class PostController {
      * @return 게시글의 상세 정보
      */
     @GetMapping("/posts/{postRefCode}")
-    public ResponseEntity<APIResponse<PostDetailResponse>> getPost(@PathVariable String postRefCode) {
+    public ResponseEntity<APIResponse<PostDetailResponse>> getPost(
+            @PathVariable String postRefCode
+    ) {
         PostDetailResponse response = postReadUsecase.getPost(postRefCode);
         return ResponseEntity.ok(APIResponse.success(response));
     }
@@ -95,7 +97,9 @@ public class PostController {
      * @return 생성된 게시글의 참조 코드
      */
     @PostMapping("/posts")
-    public ResponseEntity<APIResponse<String>> createPost(@RequestBody CreatePostRequest request) {
+    public ResponseEntity<APIResponse<String>> createPost(
+            @RequestBody CreatePostRequest request
+    ) {
         String postRefCode = postCreateUsecase.createPost(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(APIResponse.success(postRefCode));
@@ -146,7 +150,9 @@ public class PostController {
      * @return 숨기기 결과 메시지
      */
     @PatchMapping("/posts/{postRefCode}/hide")
-    public ResponseEntity<APIResponse<String>> hidePost(@PathVariable String postRefCode) {
+    public ResponseEntity<APIResponse<String>> hidePost(
+            @PathVariable String postRefCode
+    ) {
         String result = postHideUsecase.hidePost(postRefCode);
         return ResponseEntity.ok(APIResponse.success(result));
     }

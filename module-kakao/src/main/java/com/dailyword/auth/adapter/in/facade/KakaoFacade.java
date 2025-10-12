@@ -35,7 +35,9 @@ public class KakaoFacade {
      * @return 카카오 사용자 정보 (닉네임, 이메일, 프로필 이미지 등)
      */
     @PostMapping("/kakao/login")
-    public ResponseEntity<APIResponse<KakaoUserInfoResponse>> kakaoLogin(@RequestParam("username") String username) {
+    public ResponseEntity<APIResponse<KakaoUserInfoResponse>> kakaoLogin(
+            @RequestParam("username") String username
+    ) {
         String accessToken = authService.getAccessToken(username);
         KakaoUserInfoResponse userInfo = authService.getUserInfo(accessToken);
 

@@ -79,7 +79,9 @@ public class PostFacade {
      * @throws IllegalArgumentException 포스트를 찾을 수 없는 경우
      */
     @GetMapping("/posts/{postRefCode}")
-    public ResponseEntity<APIResponse<PostDetailResponse>> getPost(@PathVariable String postRefCode) {
+    public ResponseEntity<APIResponse<PostDetailResponse>> getPost(
+            @PathVariable String postRefCode
+    ) {
         PostDetailResponse response = postReadUsecase.getPost(postRefCode);
         return ResponseEntity.ok(APIResponse.success(response));
     }
@@ -93,7 +95,9 @@ public class PostFacade {
      * @return 생성된 포스트의 참조 코드
      */
     @PostMapping("/posts")
-    public String createPost(@RequestBody CreatePostRequest request) {
+    public String createPost(
+            @RequestBody CreatePostRequest request
+    ) {
         return postCreateUsecase.createPost(request.toCommand());
     }
 
@@ -145,7 +149,9 @@ public class PostFacade {
      * @throws IllegalArgumentException 포스트를 찾을 수 없는 경우
      */
     @PatchMapping("/posts/{postRefCode}/hide")
-    public ResponseEntity<APIResponse<String>> hidePost(@PathVariable String postRefCode) {
+    public ResponseEntity<APIResponse<String>> hidePost(
+            @PathVariable String postRefCode
+    ) {
         String result = postHideUsecase.hidePost(postRefCode);
         return ResponseEntity.ok(APIResponse.success(result));
     }

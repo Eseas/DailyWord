@@ -40,7 +40,9 @@ public class AuthController {
      * @return 새로운 Access Token (Authorization 헤더)과 Refresh Token (HttpOnly 쿠키)
      */
     @PostMapping("/refresh")
-    public ResponseEntity refreshToken(@RequestBody RefreshTokenRequest request) {
+    public ResponseEntity refreshToken(
+            @RequestBody RefreshTokenRequest request
+    ) {
         TokenResponse token = refreshTokenUsecase.refreshToken(request);
 
         ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", token.getRefreshToken())

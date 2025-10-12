@@ -52,7 +52,9 @@ public class AuthFacade {
      * @return 생성된 토큰 정보 (Access Token, Refresh Token)
      */
     @PostMapping("/tokens")
-    public ResponseEntity<APIResponse<TokenResponse>> generateToken(@RequestBody TokenRequest request) {
+    public ResponseEntity<APIResponse<TokenResponse>> generateToken(
+            @RequestBody TokenRequest request
+    ) {
         TokenResponse tokenResponse = generateTokenUsecase.generateToken(request.getMemberRefCode());
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -68,7 +70,9 @@ public class AuthFacade {
      * @return 갱신된 토큰 정보 (새로운 Access Token, Refresh Token)
      */
     @PostMapping("/refresh")
-    public ResponseEntity<APIResponse<TokenResponse>> refreshToken(@RequestBody RefreshTokenRequest request) {
+    public ResponseEntity<APIResponse<TokenResponse>> refreshToken(
+            @RequestBody RefreshTokenRequest request
+    ) {
         TokenResponse tokenResponse = refreshTokenUsecase.refreshToken(request.getRefreshToken());
 
         return ResponseEntity.status(HttpStatus.OK)

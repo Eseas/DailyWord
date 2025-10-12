@@ -42,7 +42,9 @@ public class MemberFacade {
      * @return 회원의 PK 값을 포함한 API 응답
      */
     @GetMapping("/internal/members/id-by-ref-code/{refCode}")
-    public ResponseEntity<APIResponse<Long>> getMemberPK(@PathVariable String refCode) {
+    public ResponseEntity<APIResponse<Long>> getMemberPK(
+            @PathVariable String refCode
+    ) {
         Long memberId = getMemberPKUseCase.getMemberPKByRefCode(refCode);
 
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(memberId));
