@@ -4,7 +4,10 @@ import com.dailyword.common.response.APIResponse;
 import com.dailyword.common.response.SuccessCode;
 import com.dailyword.file.adapter.in.facade.dto.FileInfoResponse;
 import com.dailyword.file.adapter.in.facade.dto.FileUploadResponse;
-import com.dailyword.file.application.usecase.FileUploadUsecase;
+import com.dailyword.file.application.usecase.DeleteFileUsecase;
+import com.dailyword.file.application.usecase.GenerateDownloadUrlUsecase;
+import com.dailyword.file.application.usecase.GetFileInfoUsecase;
+import com.dailyword.file.application.usecase.UploadFileUsecase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +25,10 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class FileFacade {
 
-    private final FileUploadUsecase fileUploadUsecase;
+    private final UploadFileUsecase uploadFileUsecase;
+    private final GetFileInfoUsecase getFileInfoUsecase;
+    private final GenerateDownloadUrlUsecase generateDownloadUrlUsecase;
+    private final DeleteFileUsecase deleteFileUsecase;
 
     /**
      * 파일 업로드
@@ -41,7 +47,7 @@ public class FileFacade {
             @RequestParam(value = "description", required = false) String description,
             @RequestParam(value = "isPublic", defaultValue = "false") Boolean isPublic
     ) {
-        FileUploadResponse response = fileUploadUsecase.uploadFile(file, uploaderId, description, isPublic);
+        FileUploadResponse response = uploadFileUsecase.uploadFile(file, uploaderId, description, isPublic);
         return ResponseEntity.ok(APIResponse.success(response));
     }
 
@@ -56,7 +62,7 @@ public class FileFacade {
     public ResponseEntity<APIResponse<FileInfoResponse>> getFileInfo(
             @PathVariable String fileRefCode
     ) {
-        FileInfoResponse response = fileUploadUsecase.getFileInfo(fileRefCode);
+        FileInfoResponse response = getFileInfoUsecase.getFileInfo(fileRefCode);
         return ResponseEntity.ok(APIResponse.success(response));
     }
 
@@ -73,7 +79,7 @@ public class FileFacade {
             @PathVariable String fileRefCode,
             @RequestParam("requesterId") Long requesterId
     ) {
-        String downloadUrl = fileUploadUsecase.generateDownloadUrl(fileRefCode, requesterId);
+        String downloadUrl = generateDownloadUrlUsecase.generateDownloadUrl(fileRefCode, requesterId);
         return ResponseEntity.ok(APIResponse.success(downloadUrl));
     }
 
@@ -91,7 +97,7 @@ public class FileFacade {
             @PathVariable String fileRefCode,
             @RequestParam("requesterId") Long requesterId
     ) {
-        fileUploadUsecase.deleteFile(fileRefCode, requesterId);
+        deleteFileUsecase.deleteFile(fileRefCode, requesterId);
         return ResponseEntity.ok(APIResponse.success());
     }
 }
