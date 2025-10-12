@@ -4,11 +4,10 @@ import com.dailyword.common.domain.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.util.List;
 
-@EntityScan
+@Entity
 @Getter
 @NoArgsConstructor
 @Table(name = "qt_passage")
