@@ -1,5 +1,7 @@
 package com.dailyword.follow.domain.model;
 
+import static com.dailyword.follow.domain.constant.FollowStatus.FOLLOWING;
+
 import com.dailyword.common.domain.BaseTimeEntity;
 import com.dailyword.follow.domain.constant.FollowStatus;
 import jakarta.persistence.*;
@@ -21,14 +23,14 @@ public class Follow extends BaseTimeEntity {
 
     private FollowStatus followStatus;
 
-    private Follow(Long followerId, Long followeeId) {
+    private Follow(Long followerId, Long followeeId, FollowStatus followStatus) {
         this.followerId = followerId;
         this.followeeId = followeeId;
-        followStatus = FollowStatus.FOLLOWING;
+        this.followStatus = followStatus;
     }
 
     public static Follow follow(Long followerId, Long followeeId) {
-        return new Follow(followerId, followeeId);
+        return new Follow(followerId, followeeId, FOLLOWING);
     }
 
     public void unfollow() {
@@ -36,6 +38,6 @@ public class Follow extends BaseTimeEntity {
     }
 
     public void follow() {
-        followStatus = FollowStatus.FOLLOWING;
+        followStatus = FOLLOWING;
     }
 }
