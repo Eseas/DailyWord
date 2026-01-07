@@ -31,7 +31,7 @@ import static com.dailyword.follow.domain.constant.FollowStatus.*;
 public class GetFollowingListService implements GetFollowingListUsecase {
 
     private final FollowRepository followRepository;
-    private static final Integer pageSize = 20;
+    private static final Integer pageSize = 100;
 
     /**
      * 특정 사용자가 팔로우하고 있는 사용자들의 목록을 페이지네이션으로 조회합니다.
