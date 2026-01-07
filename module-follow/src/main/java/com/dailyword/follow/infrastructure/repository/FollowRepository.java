@@ -16,17 +16,27 @@ import java.util.Optional;
 public interface FollowRepository extends JpaRepository<Follow, Long> {
 
     @Query("""
-    SELECT count(f.followerId) FROM Follow f WHERE f.followerId = :memberId and f.followStatus = :followStatus
+    SELECT count(f.followerId)
+    FROM Follow f
+    WHERE f.followerId = :memberId
+      AND f.followStatus = :followStatus
     """)
     Long getFollowerCount(@Param("memberId") Long memberId, FollowStatus followStatus);
 
     @Query("""
-    SELECT count(f.followerId) FROM Follow f WHERE f.followeeId = :memberId and f.followStatus = :followStatus
+    SELECT count(f.followerId)
+    FROM Follow f
+    WHERE f.followeeId = :memberId
+      AND f.followStatus = :followStatus
     """)
     Long getFolloweeCount(@Param("memberId") Long memberId, FollowStatus followStatus);
 
     @Query("""
-    SELECT f FROM Follow f WHERE f.followerId = :followerId AND f.followeeId = :followeeId AND f.followStatus = :followStatus
+    SELECT f
+    FROM Follow f
+    WHERE f.followerId = :followerId
+      AND f.followeeId = :followeeId
+      AND f.followStatus = :followStatus
     """)
     Optional<Follow> findFollow(@Param("followerId") Long followerId,
                                 @Param("followeeId") Long followeeId,
@@ -34,12 +44,18 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     );
 
     @Query("""
-        SELECT f FROM Follow f WHERE f.followeeId = :followeeId AND f.followStatus = :followStatus 
+    SELECT f
+    FROM Follow f
+    WHERE f.followeeId = :followeeId
+      AND f.followStatus = :followStatus 
     """)
-    Page<Follow> findFollowPageByfolloweeId(Long followeeId, FollowStatus followStatus, Pageable pageable);
+    Page<Follow> findFollowPageByFolloweeId(Long followeeId, FollowStatus followStatus, Pageable pageable);
 
     @Query("""
-        SELECT f FROM Follow f WHERE f.followeeId = :followerId AND f.followStatus = :followStatus 
+    SELECT f
+    FROM Follow f
+    WHERE f.followeeId = :followerId
+    AND f.followStatus = :followStatus 
     """)
-    Page<Follow> findFollowPageByfollowerId(Long followerId, FollowStatus followStatus, Pageable pageable);
+    Page<Follow> findFollowPageByFollowerId(Long followerId, FollowStatus followStatus, Pageable pageable);
 }

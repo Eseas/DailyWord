@@ -48,7 +48,7 @@ public class GetFollowingListService implements GetFollowingListUsecase {
     public PageResponse<GetFollowList> getFollowList(Long memberId, Integer page) {
         Pageable pageable = PageRequest.of(page, pageSize);
 
-        Page<Follow> followPage = followRepository.findFollowPageByfolloweeId(memberId, FOLLOWING, pageable);
+        Page<Follow> followPage = followRepository.findFollowPageByFolloweeId(memberId, FOLLOWING, pageable);
         List<GetFollowList> followeeIdList = followPage.getContent()
             .stream().map(GetFollowList::create)
             .collect(Collectors.toList());
