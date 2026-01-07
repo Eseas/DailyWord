@@ -31,14 +31,14 @@ public class KakaoFacade {
      * 카카오 인증코드를 통해 액세스 토큰을 발급받고 사용자 정보를 조회합니다.
      * 카카오 API를 호출하여 사용자의 프로필 정보를 가져와 반환합니다.
      *
-     * @param username 카카오 로그인에 사용할 사용자명 또는 인증코드
+     * @param code 카카오 OAuth 인증코드
      * @return 카카오 사용자 정보 (닉네임, 이메일, 프로필 이미지 등)
      */
     @PostMapping("/kakao/login")
     public ResponseEntity<APIResponse<KakaoUserInfoResponse>> kakaoLogin(
-            @RequestParam("username") String username
+            @RequestParam("code") String code
     ) {
-        String accessToken = authService.getAccessToken(username);
+        String accessToken = authService.getAccessToken(code);
         KakaoUserInfoResponse userInfo = authService.getUserInfo(accessToken);
 
         return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(userInfo));
