@@ -33,6 +33,7 @@ public class PostFacade {
     private final PostUpdateUsecase postUpdateUsecase;
     private final PostDeleteUsecase postDeleteUsecase;
     private final PostHideUsecase postHideUsecase;
+    private final PostReportUsecase postReportUsecase;
 
     /**
      * 전체 포스트 목록을 페이지네이션으로 조회합니다.
@@ -48,7 +49,8 @@ public class PostFacade {
             @RequestParam int page,
             @RequestParam int size
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(APIResponse.success(postPageUsecase.getPosts(page, size)));
+        return ResponseEntity.status(HttpStatus.OK)
+            .body(APIResponse.success(postPageUsecase.getPosts(page, size)));
     }
 
     /**
@@ -154,5 +156,13 @@ public class PostFacade {
     ) {
         String result = postHideUsecase.hidePost(postRefCode);
         return ResponseEntity.ok(APIResponse.success(result));
+    }
+
+    @PostMapping("/posts/{postRefCode}/report")
+    public ResponseEntity<APIResponse<Long>> reportPost(
+        @PathVariable String postRefCode
+    ) {
+        postReportUsecase.postReport(postRefCode);
+        return ResponseEntity.ok(APIResponse.success());
     }
 }

@@ -51,4 +51,8 @@ public class Post extends BaseUuidEntity {
     public void delete() {
         this.status = PostStatus.DELETED;
     }
+
+    public void hideTemporary() {
+        this.isHide = true;
+    }
 }

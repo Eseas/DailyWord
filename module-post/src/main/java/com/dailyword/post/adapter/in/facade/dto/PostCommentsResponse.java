@@ -18,13 +18,13 @@ public class PostCommentsResponse {
         this.comments = comments;
     }
 
-    public PostCommentsResponse toDto(Long postId, List<CommentView> commentViews) {
+    public static PostCommentsResponse toDto(Long postId, List<CommentView> commentViews) {
         List<Comment> comments = commentViews.stream().map(Comment::new).toList();
 
         return new PostCommentsResponse(postId, comments);
     }
 
-    public class Comment {
+    public static class Comment {
         Long commentId;
         String content;
         String nickname;

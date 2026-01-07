@@ -60,6 +60,6 @@ public class GetPostCommentsService implements GetPostCommentsUsecase {
 
         Page<CommentView> commentViews = commentRepository.getCommentsByPostId(pageable, postId, ACTIVE);
 
-        return new PostCommentsResponse().toDto(postId, commentViews.getContent());
+        return PostCommentsResponse.toDto(postId, commentViews.getContent());
     }
 }
