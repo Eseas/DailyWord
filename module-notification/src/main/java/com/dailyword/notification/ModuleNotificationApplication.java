@@ -1,4 +1,4 @@
-package com.dailyword.admin;
+package com.dailyword.notification;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
