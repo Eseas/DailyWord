@@ -1,4 +1,4 @@
-package com.dailyword.follow.infrastructure.repository;
+package com.dailyword.follow.adapter.out.persistence;
 
 import com.dailyword.follow.domain.constant.FollowStatus;
 import com.dailyword.follow.domain.model.Follow;
@@ -7,13 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
-@Repository
-public interface FollowRepository extends JpaRepository<Follow, Long> {
+public interface FollowJpaRepository extends JpaRepository<Follow, Long> {
 
     @Query("""
     SELECT count(f.followerId)
@@ -47,7 +44,7 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     SELECT f
     FROM Follow f
     WHERE f.followeeId = :followeeId
-      AND f.followStatus = :followStatus 
+      AND f.followStatus = :followStatus
     """)
     Page<Follow> findFollowPageByFolloweeId(Long followeeId, FollowStatus followStatus, Pageable pageable);
 
@@ -55,7 +52,7 @@ public interface FollowRepository extends JpaRepository<Follow, Long> {
     SELECT f
     FROM Follow f
     WHERE f.followeeId = :followerId
-    AND f.followStatus = :followStatus 
+    AND f.followStatus = :followStatus
     """)
     Page<Follow> findFollowPageByFollowerId(Long followerId, FollowStatus followStatus, Pageable pageable);
 }

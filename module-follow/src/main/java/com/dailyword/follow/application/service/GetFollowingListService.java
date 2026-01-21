@@ -2,9 +2,9 @@ package com.dailyword.follow.application.service;
 
 import com.dailyword.common.domain.PageResponse;
 import com.dailyword.follow.adapter.in.dto.GetFollowList;
+import com.dailyword.follow.application.port.out.FollowRepositoryPort;
 import com.dailyword.follow.application.usecase.GetFollowingListUsecase;
 import com.dailyword.follow.domain.model.Follow;
-import com.dailyword.follow.infrastructure.repository.FollowRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,20 +17,11 @@ import java.util.stream.Collectors;
 
 import static com.dailyword.follow.domain.constant.FollowStatus.*;
 
-/**
- * 특정 사용자가 팔로우하고 있는 사용자 목록을 조회하는 서비스입니다.
- *
- * 페이지네이션을 지원하여 팔로잉 목록을 20개씩 나눠서 조회합니다.
- * FOLLOWING 상태의 관계만을 대상으로 하여 활성 상태의 팔로잉만 반환합니다.
- *
- * @author DailyWord Team
- * @since 1.0
- */
 @Service
 @RequiredArgsConstructor
 public class GetFollowingListService implements GetFollowingListUsecase {
 
-    private final FollowRepository followRepository;
+    private final FollowRepositoryPort followRepositoryPort;
     private static final Integer pageSize = 100;
 
     /**
@@ -48,7 +39,7 @@ public class GetFollowingListService implements GetFollowingListUsecase {
     public PageResponse<GetFollowList> getFollowList(Long memberId, Integer page) {
         Pageable pageable = PageRequest.of(page, pageSize);
 
-        Page<Follow> followPage = followRepository.findFollowPageByFolloweeId(memberId, FOLLOWING, pageable);
+        Page<Follow> followPage = followRepositoryPort.findFollowerPage(memberId, FOLLOWING, pageable);
         List<GetFollowList> followeeIdList = followPage.getContent()
             .stream().map(GetFollowList::create)
             .collect(Collectors.toList());

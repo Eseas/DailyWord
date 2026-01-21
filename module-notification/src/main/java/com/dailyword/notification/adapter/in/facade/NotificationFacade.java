@@ -2,6 +2,7 @@ package com.dailyword.notification.adapter.in.facade;
 
 import com.dailyword.notification.adapter.in.facade.dto.SlackMessageRequest;
 import com.dailyword.notification.application.usecase.SendSlackMessageUsecase;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,7 @@ public class NotificationFacade {
 
     @PostMapping("/slack/message")
     public ResponseEntity<Void> sendSlackMessage(
-            @RequestBody SlackMessageRequest request
+            @Valid @RequestBody SlackMessageRequest request
     ) {
         sendSlackMessageUsecase.sendMessage(request.toCommand());
         return ResponseEntity.ok().build();
