@@ -47,7 +47,7 @@ public class LoginService implements LoginUseCase {
      */
     public LoginDto.Response login(LoginDto.Request requestDto) {
         Member member = memberRepository.findByLoginId(requestDto.getLoginId())
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER.getMessage()));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
 
         return LoginDto.Response.toDto(member);
     }

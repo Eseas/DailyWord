@@ -49,7 +49,7 @@ public class GetMemberInfoService implements GetMemberInfoUseCase {
     @Override
     public GetMemberInfo.Response getMemberInfo(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER.getMessage()));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
 
         var response = GetMemberInfo.Response.toDto(member);
 

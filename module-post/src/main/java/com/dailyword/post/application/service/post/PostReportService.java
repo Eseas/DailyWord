@@ -26,7 +26,7 @@ public class PostReportService implements PostReportUsecase {
     @Transactional
     public Long postReport(String postRefCode) {
         Post post = postRepository.findByRefCodeAndStatus(postRefCode, PostStatus.ACTIVE)
-            .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST.getMessage()));
+            .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST));
 
         PostReport postReport = PostReport.reportPost(post);
 

@@ -1,10 +1,14 @@
 package com.dailyword.post.application.service.post;
 
+import com.dailyword.common.event.PostCreatedEvent;
+import com.dailyword.common.kafka.EventPublisher;
+import com.dailyword.common.kafka.KafkaTopics;
 import com.dailyword.post.application.usecase.post.PostCreateUsecase;
 import com.dailyword.post.application.usecase.command.CreatePostCommand;
 import com.dailyword.post.domain.model.Post;
 import com.dailyword.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
  * @author DailyWord Team
  * @since 1.0
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PostCreateService implements PostCreateUsecase {
 
     private final PostRepository postRepository;
+    private final EventPublisher eventPublisher;
 
     /**
      * 새로운 포스트를 생성합니다.
@@ -38,9 +44,26 @@ public class PostCreateService implements PostCreateUsecase {
     @Override
     @Transactional
     public String createPost(CreatePostCommand command) {
-
         Post post = Post.create(command.getAuthorId(), command.getContent(), command.getIsHide());
+        Post savedPost = postRepository.save(post);
 
-        return postRepository.save(post).getRefCode();
+        publishPostCreatedEvent(savedPost);
+
+        log.info("Post created successfully - postId: {}, authorId: {}, refCode: {}",
+                savedPost.getId(), savedPost.getAuthorId(), savedPost.getRefCode());
+
+        return savedPost.getRefCode();
+    }
+
+    private void publishPostCreatedEvent(Post post) {
+        PostCreatedEvent event = PostCreatedEvent.of(
+                post.getId(),
+                post.getAuthorId(),
+                post.getRefCode(),
+                post.getContent(),
+                post.getIsHide()
+        );
+
+        eventPublisher.publish(KafkaTopics.POST_EVENTS, String.valueOf(post.getAuthorId()), event);
     }
 }

@@ -37,7 +37,7 @@ public class GetMypageMainInfoService implements GetMypageMainInfoUsecase {
     public MypageMainResponse getMypageMainInfo(String refCode) {
         Long memberId = memberClient.idByRefCode(refCode).getData();
 
-        GetMemberInfo memberInfo = memberClient.getMemberInfo(memberId).getData();
+        GetMemberInfo memberInfo = memberClient.getMemberInfo(refCode).getData();
 
         QtProgressResponse qtProgress = postClient.getQtProgressDates(memberId).getData();
 

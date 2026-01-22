@@ -30,6 +30,18 @@ public class Member extends BaseUuidEntity {
     @Enumerated(EnumType.STRING)
     private SocialLoginType socialLoginType;
 
+    private Member(String name, String nickname, String loginId, String email, SocialLoginType socialLoginType) {
+        this.name = name;
+        this.nickname = nickname;
+        this.loginId = loginId;
+        this.email = email;
+        this.socialLoginType = socialLoginType;
+    }
+
+    public static Member create(String name, String nickname, String loginId, String email, SocialLoginType socialLoginType) {
+        return new Member(name, nickname, loginId, email, socialLoginType);
+    }
+
     private void setNickname(String nickname) {
         this.nickname = nickname;
     }

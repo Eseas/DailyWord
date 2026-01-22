@@ -47,11 +47,11 @@ public class DeleteCommentService implements DeleteCommentUsecase {
     @Transactional
     public void deleteComment(DeleteCommentCommand command) {
         Long postId = postRepository.findByRefCodeAndStatus(command.getPostRefCode(), PostStatus.ACTIVE)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST.getMessage()))
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST))
                 .getId();
 
         Comment comment = commentRepository.findByCommentIdAndPostIdAndStatus(command.getCommentId(), postId, CommentStatus.ACTIVE)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_COMMENT.getMessage()));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_COMMENT));
 
         comment.delete();
     }

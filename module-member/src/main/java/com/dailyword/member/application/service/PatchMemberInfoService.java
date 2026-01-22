@@ -45,7 +45,7 @@ public class PatchMemberInfoService implements PatchMemberInfoUsecase {
     @Transactional
     public void patchMemberInfo(String memberRefCode, PatchMemberInfo patchMemberInfo) {
         Member member = memberRepository.findByRefCode(memberRefCode)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER.getMessage()));
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER));
 
         member.changeInfo(patchMemberInfo.getNickname());
 

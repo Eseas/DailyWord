@@ -42,7 +42,7 @@ public class GetMemberPkService implements GetMemberPKUseCase {
     @Override
     public Long getMemberPKByRefCode(String refCode) {
         return memberRepository.findByRefCode(refCode)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER.getMessage()))
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_MEMBER))
                 .getId();
     }
 }

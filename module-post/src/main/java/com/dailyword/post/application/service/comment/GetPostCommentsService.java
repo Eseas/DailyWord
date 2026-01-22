@@ -55,7 +55,7 @@ public class GetPostCommentsService implements GetPostCommentsUsecase {
         Pageable pageable = PageRequest.of(page, pageSize);
 
         Long postId = postRepository.findByRefCodeAndStatus(refCode, PostStatus.ACTIVE)
-                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST.getMessage()))
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_POST))
                 .getId();
 
         Page<CommentView> commentViews = commentRepository.getCommentsByPostId(pageable, postId, ACTIVE);
